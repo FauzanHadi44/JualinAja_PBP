@@ -1,6 +1,6 @@
 <div class="min-h-100 py-8 px-4 flex">
     <div class="max-w-7xl mx-auto w-full">
-        <div class="rounded-3xl p-8 mb-6 mt-6 min-h-[450px] relative overflow-hidden transform hover:scale-[1.01] transition-all duration-700 shadow-2xl" 
+        <div class="rounded-3xl p-8 mb-3 mt-6 min-h-[450px] relative overflow-hidden transform hover:scale-[1.01] transition-all duration-700 shadow-2xl" 
             style="background: linear-gradient(135deg, #FDFAF6 0%, #F5F1E8 25%, #FFFFFF 50%, #F5F1E8 75%, #FDFAF6 100%); box-shadow: 0px 25px 50px 0px rgba(116, 81, 45, 0.15), 0px 0px 0px 1px rgba(212, 175, 55, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.8); border: 2px solid rgba(212, 175, 55, 0.2);">
             
             <!-- Animated gradient overlay -->
@@ -14,9 +14,13 @@
                 <div class="flex items-center gap-3">
                     <div>
                         <h2 class="font-bold leading-tight text-[#8B5A2B] text-3xl md:text-4xl lg:text-5xl">
-                            ⚡ Flash Sale
+                            MEGA FLASH SALE 
                         </h2>
-                        <p class="text-[#8B5A2B] text-sm font-medium mt-1">Penawaran Terbatas - Jangan Sampai Terlewat!</p>
+                        <p class="text-[#8B5A2B] text-sm font-medium mt-1 animate-bounce">Diskon Gila-Gilaan! Buruan Sebelum Kehabisan!</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">TERBATAS</span>
+                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full font-bold">HEMAT 70%</span>
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center space-x-3 bg-white/80 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg border border-[#D4AF37]/20">
@@ -335,8 +339,12 @@
     
     // Countdown Timer
     function startCountdown() {
-        // Set countdown end time (24 hours from now)
-        const endTime = new Date().getTime() + (10 * 60 * 60 * 1000);
+        // Get countdown end time from backend (Laravel variable)
+        @php
+            // Default: 10 hours from now if not set
+            $flashSaleEndTime = $flashSaleEndTime ?? now()->addHours(10);
+        @endphp
+        const endTime = new Date('{{ $flashSaleEndTime->toISOString() }}').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();

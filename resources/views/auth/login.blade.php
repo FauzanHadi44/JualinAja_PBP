@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Jualin Aja</title>
+    <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center py-8">
     <div class="w-full max-w-4xl mx-4 mb-4">
         <nav aria-label="Breadcrumb">
-            <ol class="flex items-center gap-1 text-sm text-gray-700">
+            <ol class="flex items-center gap-1 text-sm text-[#74512D]">
                 <li>
-                <a href="/" class="block transition-colors hover:text-gray-900" aria-label="Home">
+                <a href="/" class="block transition-colors text-[#8B5A2B] hover:text-[#8B5A2B" aria-label="Home">
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="size-4"
@@ -29,22 +29,22 @@
                 </li>
 
                 <li class="rtl:rotate-180">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="size-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                >
-                    <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                    />
-                </svg>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="size-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                        fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd"
+                        />
+                    </svg>
                 </li>
 
                 <li>
-                    <a href="/login" class="block transition-colors hover:text-gray-900">Login </a>
+                    <a href="/login" class="block text-[#8B5A2B] font-medium">Login </a>
                 </li>
             </ol>
         </nav>
@@ -123,7 +123,7 @@
                 </div>
 
                 <!-- Login Button -->
-                <button type="submit" class="w-full bg-gray-800 text-white py-3 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
+                <button type="submit" class="w-full bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
                     Login
                 </button>
             </form>

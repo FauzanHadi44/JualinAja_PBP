@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register - Jualin Aja</title>
+    <title>Register</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center py-8">
@@ -22,7 +22,7 @@
                     </svg>
                 </li>
                 <li>
-                    <a href="/login" class="block transition-colors text-[#8B5A2B] hover:text-[#8B5A2B]">Login </a>
+                    <a href="/login" class="block transition-colors text-[#8B5A2B] hover:text-[#8B5A2B">Login </a>
                 </li>
                 <li class="rtl:rotate-180">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
@@ -121,7 +121,7 @@
                 </div>
 
                 <!-- Register Button -->
-                <button type="submit" class="w-full bg-gray-800 text-white py-3 px-4 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
+                <button type="submit" class="w-full bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
                     Daftar
                 </button>
             </form>

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="min-h-100 py-8 px-4 flex items-center justify-center">
-    <div class="max-w-7xl mx-auto w-full relative z-10 pt-15">
+    <div class="max-w-7xl mx-auto w-full relative z-10 pt-15 mb-8">
         <div class="rounded-3xl p-10 mb-2 mt-2 flex flex-col md:flex-row items-center min-h-[500px] relative overflow-hidden transform hover:scale-[1.01] transition-all duration-700 shadow-2xl" 
             style="background: linear-gradient(135deg, #74512D 0%, #8B5A2B 25%, #A0522D 50%, #8B5A2B 75%, #74512D 100%); box-shadow: 0px 25px 50px 0px rgba(116, 81, 45, 0.3), 0px 0px 0px 1px rgba(255, 255, 255, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.2);">
             
@@ -29,11 +29,21 @@
     </div>
 </div>
 
-<div class="max-w-6xl mx-auto my-16">
+<div class="max-w-6xl mx-auto">
     <hr class="border-t-2 border-[#8B4513]/40">
 </div>
 
 @include('layouts.flashsale')
+
+<!-- Container kedua diganti dengan gambar -->
+<!-- Ukuran container kedua sebelumnya: Tinggi = 300px (min-height), Lebar = 1280px (max-w-7xl) -->
+<div class="py-4 px-4 flex items-center justify-center">
+    <div class="max-w-7xl mx-auto w-full">
+        <img src="{{ asset('images/hero21.png') }}" 
+             alt="Separator Image" 
+             class="w-full h-[300px] object-cover rounded-3xl shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
+    </div>
+</div>
 
 @include('layouts.produk')
 

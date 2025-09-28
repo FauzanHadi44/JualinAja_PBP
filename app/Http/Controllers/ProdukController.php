@@ -18,7 +18,6 @@ class ProdukController extends Controller
             1 => [
                 'id' => 1,
                 'name' => 'Kaos Polos Premium',
-                'brand' => 'Well-Versed Commerce',
                 'price' => 75000,
                 'image' => 'hero1.jpg',
                 'description' => 'Kaos polos berkualitas tinggi dengan bahan combed yang nyaman digunakan sehari-hari. Tersedia dalam berbagai ukuran dan warna.',
@@ -32,23 +31,21 @@ class ProdukController extends Controller
             ],
             2 => [
                 'id' => 2,
-                'name' => 'Celana Jeans Slim Fit',
-                'brand' => 'Denim Collection',
-                'price' => 150000,
-                'image' => 'hero2.jpg',
-                'description' => 'Celana jeans dengan model slim fit yang trendy dan cocok untuk cuaca dingin dan hangat.',
+                'name' => 'Celana Jeans Denim Stretch',
+                'price' => 75000,
+                'image' => 'hero1.jpg',
+                'description' => 'Celana jeans premium dengan teknologi stretch yang memberikan kenyamanan maksimal dan fleksibilitas gerak sepanjang hari.',
                 'features' => [
-                    'Bahan Denim Premium',
-                    'Model Slim Fit',
-                    'Warna Tidak Mudah Pudar',
-                    'Desain Modern'
+                    'Bahan 100% Cotton Combed',
+                    'Jahitan rapi dan kuat',
+                    'Nyaman digunakan',
+                    'Tahan lama'
                 ],
                 'category' => 'celana'
             ],
             3 => [
                 'id' => 3,
                 'name' => 'Jaket Hoodie Casual',
-                'brand' => 'Street Wear',
                 'price' => 200000,
                 'image' => 'hero3.png',
                 'description' => 'Jaket hoodie dengan desain casual yang cocok untuk cuaca dingin dan gaya santai.',
@@ -63,7 +60,6 @@ class ProdukController extends Controller
             4 => [
                 'id' => 4,
                 'name' => 'Tas Ransel Laptop',
-                'brand' => 'Tech Gear',
                 'price' => 250000,
                 'image' => 'hero5.png',
                 'description' => 'Tas ransel dengan kompartemen khusus laptop dan desain ergonomis untuk kenyamanan maksimal.',
@@ -74,6 +70,20 @@ class ProdukController extends Controller
                     'Multiple Pockets'
                 ],
                 'category' => 'tas'
+            ],
+            5 => [
+                'id' => 5,
+                'name' => 'Sepatu Sneakers Premium',
+                'price' => 350000,
+                'image' => 'hero5.png',
+                'description' => 'Sepatu sneakers dengan teknologi cushioning terbaru, bahan breathable, dan desain modern. Nyaman untuk aktivitas sehari-hari.',
+                'features' => [
+                    'Teknologi Cushioning',
+                    'Bahan Breathable',
+                    'Desain Modern',
+                    'Sole Anti-Slip'
+                ],
+                'category' => 'sepatu'
             ]
         ];
 
