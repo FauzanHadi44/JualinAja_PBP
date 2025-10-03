@@ -19,7 +19,7 @@ class ProdukController extends Controller
 
     public function show($id)
     {
-        $products = Product::where('is_active', true)->findOrFail($id);
+        $product = Product::where('is_active', true)->findOrFail($id);
         return view('layouts.viewproduk', compact('product'));
     }
 }

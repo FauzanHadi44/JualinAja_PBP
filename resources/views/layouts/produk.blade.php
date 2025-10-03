@@ -110,7 +110,6 @@
             <p class="text-center text-gray-500">Belum ada produk tersedia.</p>
         @endforelse
     </div>
-
 </div>
 
 <script>
