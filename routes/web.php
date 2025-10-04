@@ -16,6 +16,8 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index'])->name('beranda');
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
 Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+Route::get('/detail-produk', [ProdukController::class, 'indexsemua'])->name('produk.indexsemua');
+
 
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

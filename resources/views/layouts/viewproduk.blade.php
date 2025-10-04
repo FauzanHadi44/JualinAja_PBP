@@ -2,69 +2,65 @@
         <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="top-0">
                 <div class="overflow-hidden rounded-lg">
-                    <img src="{{ asset('images/' . $product['image']) }}" alt="{{ $product['name'] }}"
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                         class="w-full h-auto max-h-[600px] object-cover object-center shadow-lg hover:scale-[1.02] transition-all duration-300" />
                 </div>
             </div>
 
             <div class="py-6 px-8 max-lg:max-w-2xl">
                 <div>
-                    <h2 class="text-2xl font-semibold text-slate-900">{{ $product['name'] }}</h2>
+                    <h2 class="text-2xl font-semibold text-slate-900">{{ $product->name }}</h2>
                 </div>
 
                 <div class="mt-4">
                     <div class="flex items-center flex-wrap gap-4">
                         <p class="text-slate-900 text-4xl font-semibold">
-                            Rp{{ number_format($product['price'], 0, ',', '.') }}</p>
+                            Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                     </div>
                 </div>
 
                 @php
-                    $fashionCategories = ['baju', 'celana', 'jaket'];
-                    $shoeCategories = ['sepatu'];
-                    $bagCategories = ['tas'];
+                    // Ambil nama kategori produk (pastikan huruf kecil agar konsisten)
+                    $categoryName = strtolower($product->category->name ?? ($product['category'] ?? ''));
                 @endphp
 
-                @if (in_array($product['category'], $fashionCategories))
+                @if (in_array($categoryName, ['baju', 'celana', 'jaket']))
+                    {{-- Untuk fashion: baju, celana, jaket --}}
                     <div class="mt-8">
-                        <h3 class="text-xl font-semibold text-slate-900">Choose a Size</h3>
+                        <h3 class="text-xl font-semibold text-slate-900">Pilih Ukuran</h3>
                         <div class="flex flex-wrap gap-4 mt-4" id="size-options">
-                            <button type="button" data-size="S"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">S</button>
-                            <button type="button" data-size="M"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">M</button>
-                            <button type="button" data-size="L"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">L</button>
-                            <button type="button" data-size="XL"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">XL</button>
+                            @foreach (['S', 'M', 'L', 'XL'] as $size)
+                                <button type="button" data-size="{{ $size }}"
+                                    class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">
+                                    {{ $size }}
+                                </button>
+                            @endforeach
                         </div>
                     </div>
-                @elseif(in_array($product['category'], $shoeCategories))
+                @elseif ($categoryName === 'sepatu')
+                    {{-- Untuk sepatu --}}
                     <div class="mt-8">
-                        <h3 class="text-xl font-semibold text-slate-900">Choose a Size</h3>
+                        <h3 class="text-xl font-semibold text-slate-900">Pilih Ukuran</h3>
                         <div class="flex flex-wrap gap-4 mt-4" id="size-options">
-                            <button type="button" data-size="38"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">38</button>
-                            <button type="button" data-size="39"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">39</button>
-                            <button type="button" data-size="40"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">40</button>
-                            <button type="button" data-size="41"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">41</button>
-                            <button type="button" data-size="42"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">42</button>
-                            <button type="button" data-size="43"
-                                class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">43</button>
+                            @foreach (['38', '39', '40', '41', '42', '43'] as $size)
+                                <button type="button" data-size="{{ $size }}"
+                                    class="size-btn px-3 py-2 text-sm bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors">
+                                    {{ $size }}
+                                </button>
+                            @endforeach
                         </div>
                     </div>
-                @elseif(in_array($product['category'], $bagCategories))
+                @elseif ($categoryName === 'tas')
+                    {{-- Untuk tas --}}
                     <div class="mt-8">
                         <div class="bg-[#F2E7D8] border border-[#74512D]/30 rounded-lg p-4">
-                            <p class="text-[#74512D] font-medium text-center">Produk ini tidak memerlukan pilihan ukuran
+                            <p class="text-[#74512D] font-medium text-center">
+                                Produk ini tidak memerlukan pilihan ukuran
                             </p>
                         </div>
                     </div>
                 @endif
+
 
                 <div class="mt-8 space-y-4">
                     <button type="button"

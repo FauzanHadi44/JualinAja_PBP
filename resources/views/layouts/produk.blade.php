@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="ml-6 flex-shrink-0">
-            <a href="/produk"
+            <a href="{{ route('produk.indexsemua') }}"
                 class="inline-flex items-center gap-3 px-6 py-3 bg-[#8B5A2B] text-white font-semibold rounded-xl hover:from-[#74512D] hover:to-[#8B5A2B] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group">
                 <span>Lihat Semua</span>
                 <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none"
@@ -35,24 +35,21 @@
             class="category-btn px-8 py-2 bg-[#8B5A2B] text-white font-medium rounded-lg border-2 border-[#8B5A2B] hover:bg-[#74512D] hover:border-[#74512D] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active">
             Semua
         </button>
-        <button onclick="filterProducts('fashion')"
-            class="category-btn px-8 py-2 bg-white text-[#8B5A2B] font-medium rounded-lg border-2 border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-            Fashion
-        </button>
-        <button onclick="filterProducts('tas')"
-            class="category-btn px-8 py-2 bg-white text-[#8B5A2B] font-medium rounded-lg border-2 border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-            Tas
-        </button>
-        <button onclick="filterProducts('sepatu')"
-            class="category-btn px-8 py-2 bg-white text-[#8B5A2B] font-medium rounded-lg border-2 border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-            Sepatu
-        </button>
+
+        @foreach ($categories as $category)
+            <button onclick="filterProducts('{{ strtolower($category->name) }}')"
+                class="category-btn px-8 py-2 bg-white text-[#8B5A2B] font-medium rounded-lg border-2 border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                {{ $category->name }}
+            </button>
+        @endforeach
     </div>
+
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
         <!-- Product Card 1: Kaos Premium Cotton Combed -->
         @forelse ($products as $product)
-            <div
-                class="product-card flex-shrink-0 bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full">
+            <div class="product-card flex-shrink-0 bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full"
+                data-category="{{ strtolower($product->category->name) }}" data-id="{{ $product->id }}">
                 <!-- Card decoration -->
                 <a href="{{ route('produk.show', $product->id) }}">
                     <div
@@ -117,38 +114,25 @@
     let selectedSizes = {};
 
     function filterProducts(category) {
-        // Get all product cards
         const productCards = document.querySelectorAll('.product-card');
-
-        // Get all category buttons
         const categoryButtons = document.querySelectorAll('.category-btn');
 
-        // Remove active class from all buttons
+        // Update tombol aktif
         categoryButtons.forEach(btn => {
             btn.classList.remove('bg-[#8B5A2B]', 'text-white', 'active');
             btn.classList.add('bg-white', 'text-[#8B5A2B]');
         });
-
-        // Add active class to clicked button
         event.target.classList.remove('bg-white', 'text-[#8B5A2B]');
         event.target.classList.add('bg-[#8B5A2B]', 'text-white', 'active');
 
-        // Show/hide products based on category
+        // Tampilkan/hide produk
         productCards.forEach(card => {
-            if (category === 'semua') {
+            const cardCategory = card.getAttribute('data-category').toLowerCase();
+
+            if (category === 'semua' || cardCategory === category) {
                 card.style.display = 'block';
             } else {
-                const cardCategory = card.getAttribute('data-category');
-                if (cardCategory === category) {
-                    card.style.display = 'block';
-                } else {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (cardCategory === category) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
+                card.style.display = 'none';
             }
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,9 @@ class HomeController extends Controller
             ->take(6) // misalnya hanya 6 produk terbaru di beranda
             ->get();
 
-        return view('pages.beranda', compact('products'));
+        $categories = Category::all();
+
+        return view('pages.beranda', compact('products', 'categories'));
     }
 
     /**
