@@ -68,7 +68,13 @@
                     <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
                         Beli Sekarang
                     </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <button class="add-to-cart-btn flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center" 
+                            data-product-id="2" 
+                            data-product-name="Kaos Polos Premium" 
+                            data-product-price="75000" 
+                            data-product-description="Kaos polos berkualitas tinggi dengan bahan cotton combed yang nyaman dan tahan lama" 
+                            data-product-image="{{ asset('images/hero5.png') }}"
+                            onclick="event.stopPropagation(); addToCartFromCard(this);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
@@ -106,7 +112,13 @@
                     <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
                         Beli Sekarang
                     </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <button class="add-to-cart-btn flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center" 
+                            data-product-id="3" 
+                            data-product-name="Jaket Hoodie Fleece Premium" 
+                            data-product-price="200000" 
+                            data-product-description="Jaket hoodie dengan bahan fleece premium yang hangat dan nyaman untuk cuaca dingin" 
+                            data-product-image="{{ asset('images/hero5.png') }}"
+                            onclick="event.stopPropagation(); addToCartFromCard(this);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
@@ -144,7 +156,13 @@
                     <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
                         Beli Sekarang
                     </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <button class="add-to-cart-btn flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center" 
+                            data-product-id="4" 
+                            data-product-name="Tas Ransel Multifungsi Pro" 
+                            data-product-price="300000" 
+                            data-product-description="Tas ransel dengan desain multifungsi dan bahan berkualitas tinggi untuk kebutuhan sehari-hari" 
+                            data-product-image="{{ asset('images/hero5.png') }}"
+                            onclick="event.stopPropagation(); addToCartFromCard(this);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
@@ -177,7 +195,13 @@
                     <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
                         Beli Sekarang
                     </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <button class="add-to-cart-btn flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center" 
+                            data-product-id="5" 
+                            data-product-name="Sepatu Sneakers Sport" 
+                            data-product-price="350000" 
+                            data-product-description="Sepatu sneakers dengan teknologi terbaru untuk kenyamanan maksimal saat berolahraga" 
+                            data-product-image="{{ asset('images/hero5.png') }}"
+                            onclick="event.stopPropagation(); addToCartFromCard(this);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
@@ -260,10 +284,12 @@ function filterProducts(category) {
             } else {
                 card.style.display = 'none';
             }
-        }
+        });
     });
 }
+</script>
 
+<script>
 // Function to handle size selection
 function selectSize(element, productId) {
     const productCard = element.closest('.product-card');
@@ -341,3 +367,66 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script>
+// Add JavaScript function for adding to cart from card
+function addToCartFromCard(button) {
+    // Get selected size for this product if available
+    const productCard = button.closest('.product-card');
+    const productId = button.dataset.productId;
+    const selectedSizeElement = productCard.querySelector('.size-option.bg-\\[\\#8B5A2B\\]');
+    const selectedSize = selectedSizeElement ? selectedSizeElement.dataset.size : '';
+    
+    // Check if size is required but not selected
+    const sizeOptions = productCard.querySelectorAll('.size-option');
+    if (sizeOptions.length > 0 && !selectedSize) {
+        showNotification('Silakan pilih ukuran terlebih dahulu!', 'error');
+        return;
+    }
+    
+    const productData = {
+        name: button.dataset.productName,
+        price: button.dataset.productPrice,
+        description: button.dataset.productDescription,
+        image: button.dataset.productImage,
+        quantity: 1,
+        size: selectedSize
+    };
+
+    const formData = new FormData();
+    formData.append('product_name', productData.name);
+    formData.append('product_price', productData.price);
+    formData.append('product_description', productData.description);
+    formData.append('product_image', productData.image);
+    formData.append('quantity', productData.quantity);
+    formData.append('size', productData.size);
+    formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+    fetch('/cart/add', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Produk berhasil ditambahkan ke keranjang!', 'success');
+            updateCartBadge(data.cartCount);
+        } else {
+            if (data.redirect) {
+                showNotification(data.message || 'Anda harus login terlebih dahulu untuk menambahkan produk ke keranjang!', 'error');
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 2000);
+            } else {
+                showNotification(data.message || 'Gagal menambahkan produk ke keranjang', 'error');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Terjadi kesalahan saat menambahkan produk ke keranjang', 'error');
+    });
+}

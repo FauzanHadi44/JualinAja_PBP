@@ -63,11 +63,44 @@
                     </svg>
                     Size
                 </h6>
-                <div class="flex flex-wrap gap-3 mt-4">
-                    <button type="button" data-size="s" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">S</button>
-                    <button type="button" data-size="m" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">M</button>
-                    <button type="button" data-size="l" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">L</button>
-                    <button type="button" data-size="xl" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">XL</button>
+                <div class="mt-4">
+                    <!-- Ukuran Pakaian -->
+                    <div class="mb-4">
+                        <p class="text-xs text-[#74512D] font-medium mb-2 flex items-center gap-2">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            Fashion
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" data-size="s" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">S</button>
+                            <button type="button" data-size="m" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">M</button>
+                            <button type="button" data-size="l" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">L</button>
+                            <button type="button" data-size="xl" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">XL</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Pembatas -->
+                    <div class="border-t border-[#8B5A2B]/20 my-4"></div>
+                    
+                    <!-- Ukuran Sepatu -->
+                    <div>
+                        <p class="text-xs text-[#74512D] font-medium mb-2 flex items-center gap-2">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                            </svg>
+                            Sepatu
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" data-size="38" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">38</button>
+                            <button type="button" data-size="39" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">39</button>
+                            <button type="button" data-size="40" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">40</button>
+                            <button type="button" data-size="41" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">41</button>
+                            <button type="button" data-size="42" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">42</button>
+                            <button type="button" data-size="43" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">43</button>
+                            <button type="button" data-size="44" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">44</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr class="my-6 border-[#8B5A2B]/20" />

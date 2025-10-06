@@ -271,7 +271,7 @@
         </div>
 
         <!-- Product Card 7: Sepatu Sneakers Casual -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="39,40,41,42,43" data-price="300000" data-brand="sneakers" data-id="7" onclick="goToProductDetail(5)">
+        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="38,39,40,41,42,43,44" data-price="300000" data-brand="sneakers" data-id="7" onclick="goToProductDetail(5)">
             <!-- Card decoration -->
             <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
             <div class="relative z-10">
@@ -286,12 +286,14 @@
                     <!-- Size Options for Shoes -->
                     <div class="mb-3">
                         <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1">
+                        <div class="flex gap-1 flex-wrap">
+                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="38">38</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="39">39</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="40">40</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="41">41</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="42">42</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="43">43</span>
+                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="44">44</span>
                         </div>
                     </div>
                     <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 300.000</p>
@@ -310,7 +312,7 @@
         </div>
 
         <!-- Product Card 8: Sepatu Formal Kulit Premium -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="39,40,41,42,43" data-price="450000" data-brand="formal" data-id="8" onclick="goToProductDetail(5)">
+        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="38,39,40,41,42,43,44" data-price="450000" data-brand="formal" data-id="8" onclick="goToProductDetail(5)">
             <!-- Card decoration -->
             <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
             <div class="relative z-10">
@@ -325,12 +327,14 @@
                     <!-- Size Options for Shoes -->
                     <div class="mb-3">
                         <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1">
+                        <div class="flex gap-1 flex-wrap">
+                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="38">38</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="39">39</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="40">40</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="41">41</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="42">42</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="43">43</span>
+                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="44">44</span>
                         </div>
                     </div>
                     <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 450.000</p>
@@ -349,7 +353,7 @@
         </div>
 
         <!-- Product Card 9: Sepatu Olahraga Running Pro -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="39,40,41,42,43" data-price="400000" data-brand="running" data-id="9" onclick="goToProductDetail(5)">
+        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="38,39,40,41,42,43,44" data-price="400000" data-brand="running" data-id="9" onclick="goToProductDetail(5)">
             <!-- Card decoration -->
             <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
             <div class="relative z-10">
@@ -364,12 +368,14 @@
                     <!-- Size Options for Shoes -->
                     <div class="mb-3">
                         <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1">
+                        <div class="flex gap-1 flex-wrap">
+                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="38">38</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="39">39</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="40">40</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="41">41</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="42">42</span>
                             <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="43">43</span>
+                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="44">44</span>
                         </div>
                     </div>
                     <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 400.000</p>
