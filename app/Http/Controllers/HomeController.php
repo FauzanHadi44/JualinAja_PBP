@@ -13,11 +13,36 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::where('is_active', true)
+        // Ambil produk berdasarkan kategori dengan batasan jumlah
+        $fashionProducts = Product::where('is_active', true)
             ->where('stock', '>', 0)
+            ->whereHas('category', function($query) {
+                $query->where('name', 'Fashion');
+            })
             ->latest()
-            ->take(6) // misalnya hanya 6 produk terbaru di beranda
+            ->take(4)
             ->get();
+
+        $tasProducts = Product::where('is_active', true)
+            ->where('stock', '>', 0)
+            ->whereHas('category', function($query) {
+                $query->where('name', 'Tas');
+            })
+            ->latest()
+            ->take(2)
+            ->get();
+
+        $sepatuProducts = Product::where('is_active', true)
+            ->where('stock', '>', 0)
+            ->whereHas('category', function($query) {
+                $query->where('name', 'Alas Kaki');
+            })
+            ->latest()
+            ->take(2)
+            ->get();
+
+        // Gabungkan semua produk
+        $products = $fashionProducts->concat($tasProducts)->concat($sepatuProducts);
 
         $categories = Category::all();
 

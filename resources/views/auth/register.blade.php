@@ -52,20 +52,20 @@
                             <h3 class="text-3xl font-bold text-[#74512D] font-serif tracking-wide group-hover:text-[#8B5A2B] transition-colors duration-300">
                                 Jualin Aja
                             </h3>
-                            <p class="text-sm text-gray-600 font-medium mt-1">Marketplace UMKM Terpercaya</p>
+                            <p class="text-sm text-[#74512D] font-medium mt-1">Marketplace UMKM Terpercaya</p>
                         </div>
                     </div>
                 </div>
 
-                <p class="mx-auto max-w-md text-center leading-relaxed text-gray-500 dark:text-gray-400 pb-20">
+                <p class="mx-auto max-w-md text-center leading-relaxed text-[#74512D]/70 pb-20">
                     Dari ide UMKM kecil, menuju bisnis yang besar. Kami bantu Jualin Aja, biar Anda fokus berkreasi.
                 </p>
 
                 <div class="text-center md:text-left">
-                    <p class="text-sm text-gray-600">
+                    <p class="text-sm text-[#74512D]/70">
                         © 2024 <span class="font-semibold text-[#74512D]">Jualin Aja</span>. All rights reserved.
                     </p>
-                    <p class="text-xs text-gray-500 mt-1">
+                    <p class="text-xs text-[#74512D]/70 mt-1">
                         Empowering UMKM across Indonesia
                     </p>
                 </div>
@@ -75,8 +75,8 @@
             <div class="w-1/2 p-8">
                 <!-- Header -->
                 <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Daftar Akun</h2>
-                    <p class="text-gray-600">Bergabunglah dengan kami!</p>
+                    <h2 class="text-2xl font-bold text-[#74512D] mb-2">Daftar Akun</h2>
+                    <p class="text-[#74512D]/70">Bergabunglah dengan kami!</p>
                 </div>
             
             <!-- Register Form -->

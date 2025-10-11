@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="min-h-100 py-8 px-4 flex items-center justify-center">
-    <div class="max-w-7xl mx-auto w-full relative z-10 pt-15 mb-8">
+    <div class="max-w-7xl mx-auto w-full relative z-10 pt-20">
         <div class="rounded-3xl p-10 mb-2 mt-2 flex flex-col md:flex-row items-center min-h-[500px] relative overflow-hidden transform hover:scale-[1.01] transition-all duration-700 shadow-2xl" 
             style="background: linear-gradient(135deg, #74512D 0%, #8B5A2B 25%, #A0522D 50%, #8B5A2B 75%, #74512D 100%); box-shadow: 0px 25px 50px 0px rgba(116, 81, 45, 0.3), 0px 0px 0px 1px rgba(255, 255, 255, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.2);">
             
@@ -29,22 +29,62 @@
     </div>
 </div>
 
-<div class="max-w-6xl mx-auto">
+<div class="max-w-7xl mx-auto px-4 mb-10 mt-4">
+    <!-- Title Section -->
+    <div class="bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm shadow-xl rounded-2xl px-6 h-fit py-6 border-2 border-[#8B5A2B]/20">
+        <h2 class="text-2xl font-bold text-[#8B5A2B] mb-3 md:text-3xl lg:text-2xl flex items-center gap-3"> 
+            Kategori Pilihan
+        </h2>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <!-- Fashion -->
+            <a href="{{ route('produk.indexsemua') }}?category=fashion" class="group block bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm border-2 border-[#8B5A2B]/20 rounded-2xl p-6 hover:shadow-xl hover:border-[#8B5A2B]/40 transition-all duration-300">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-shirt text-[#8B5A2B] group-hover:text-[#74512D] transition-colors text-xl"></i>
+                    <span class="text-lg font-semibold text-[#74512D] group-hover:text-[#8B5A2B]">Fashion</span>
+                </div>
+                <p class="mt-2 text-sm text-[#74512D]/80">Lihat semua produk fashion.</p>
+            </a>
+    
+            <!-- Tas -->
+            <a href="{{ route('produk.indexsemua') }}?category=tas" class="group block bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm border-2 border-[#8B5A2B]/20 rounded-2xl p-6 hover:shadow-xl hover:border-[#8B5A2B]/40 transition-all duration-300">
+                <div class="flex items-center gap-3">
+                    <svg class="w-6 h-6 text-[#8B5A2B] group-hover:text-[#74512D] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span class="text-lg font-semibold text-[#74512D] group-hover:text-[#8B5A2B]">Tas</span>
+                </div>
+                <p class="mt-2 text-sm text-[#74512D]/80">Lihat semua produk tas.</p>
+            </a>
+    
+            <!-- Alas Kaki -->
+            <a href="{{ route('produk.indexsemua') }}?category=alas kaki" class="group block bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm border-2 border-[#8B5A2B]/20 rounded-2xl p-6 hover:shadow-xl hover:border-[#8B5A2B]/40 transition-all duration-300">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-shoe-prints text-[#8B5A2B] group-hover:text-[#74512D] transition-colors text-xl"></i>
+                    <span class="text-lg font-semibold text-[#74512D] group-hover:text-[#8B5A2B]">Alas Kaki</span>
+                </div>
+                <p class="mt-2 text-sm text-[#74512D]/80">Lihat semua produk alas kaki.</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto">
     <hr class="border-t-2 border-[#8B4513]/40">
 </div>
 
-@include('layouts.flashsale')
+@include('layouts.produk')
 
-<!-- Container kedua diganti dengan gambar -->
-<!-- Ukuran container kedua sebelumnya: Tinggi = 300px (min-height), Lebar = 1280px (max-w-7xl) -->
-<div class="py-4 px-4 flex items-center justify-center">
+<div class="max-w-7xl mx-auto">
+    <hr class="border-t-2 border-[#8B4513]/40">
+</div>
+
+<div class="py-4 px-4 flex items-center justify-center mt-10 mb-20">
     <div class="max-w-7xl mx-auto w-full">
         <img src="{{ asset('images/hero21.png') }}" 
              alt="Separator Image" 
              class="w-full h-[300px] object-cover rounded-3xl shadow-2xl transform hover:scale-[1.02] transition-all duration-500">
     </div>
 </div>
-
-@include('layouts.produk')
 
 @endsection

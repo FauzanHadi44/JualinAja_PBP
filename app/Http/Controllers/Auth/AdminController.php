@@ -5,88 +5,53 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
 
 
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the admin dashboard with statistics.
      */
     public function index()
     {
-        return view('admin.dashboard');
-    }
+        // Hitung statistik produk
+        $totalProducts = Product::count();
+        $activeProducts = Product::where('is_active', true)->count();
+        $inactiveProducts = Product::where('is_active', false)->count();
+        $lowStockProducts = Product::where('stock', '<', 10)->count();
+        
+        // Hitung produk berdasarkan kategori
+        $fashionProducts = Product::whereHas('category', function($query) {
+            $query->where('name', 'Fashion');
+        })->count();
+        
+        // Toleransi data lama: hitung kategori "Alas Kaki" dan "Sepatu"
+        $sepatuProducts = Product::whereHas('category', function($query) {
+            $query->whereIn('name', ['Alas Kaki', 'Sepatu']);
+        })->count();
+        
+        $tasProducts = Product::whereHas('category', function($query) {
+            $query->where('name', 'Tas');
+        })->count();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Ringkasan status pesanan
+        $ordersDiproses = Order::where('status', 'diproses')->count();
+        $ordersDikirim  = Order::where('status', 'dikirim')->count();
+        $ordersSelesai  = Order::where('status', 'selesai')->count();
+        $ordersBatal    = Order::where('status', 'batal')->count();
+        $totalOrders    = Order::count();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price'       => 'required|numeric|min:0',
-            'stock'       => 'nullable|integer|min:0',
-            'category_id' => 'nullable|exists:categories,id',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'is_active'   => 'required|boolean',
-        ]);
-
-        $product = new Product();
-        $product->name = $validated['name'];
-        $product->description = $validated['description'] ?? null;
-        $product->price = $validated['price'];
-        $product->stock = $validated['stock'] ?? 0;
-        $product->category_id = $validated['category_id'] ?? null;
-        $product->is_active = $validated['is_active'];
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public'); // simpan di storage/app/public/products
-            $product->image = $path;
-        }
-
-        $product->save();
-
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('admin.dashboard', compact(
+            'totalProducts',
+            'fashionProducts',
+            'sepatuProducts',
+            'tasProducts',
+            'ordersDiproses',
+            'ordersDikirim',
+            'ordersSelesai',
+            'ordersBatal',
+            'totalOrders'
+        ));
     }
 }

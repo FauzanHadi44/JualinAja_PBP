@@ -68,372 +68,106 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <!-- Product Card 1: Kaos Polos Premium -->
         @forelse ($products as $product)
+            @php
+                $categoryName = strtolower($product->category->name);
+                $sizeData = '';
+                if ($categoryName === 'fashion') {
+                    $sizeData = 's,m,l,xl';
+                } elseif ($categoryName === 'alas kaki') {
+                    $sizeData = '38,39,40,41,42,43,44';
+                } else {
+                    $sizeData = ''; // Tas tidak memiliki ukuran
+                }
+            @endphp
             <div class="product-card flex-shrink-0 bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full"
-                data-category="{{ strtolower($product->category->name) }}" data-id="{{ $product->id }}">
+                data-category="{{ strtolower($product->category->name) }}" 
+                data-id="{{ $product->id }}"
+                data-size="{{ $sizeData }}"
+                data-price="{{ $product->price }}"
+                data-brand="{{ strtolower($product->name) }}"
+                data-title="{{ strtolower($product->name) }}"
+                onclick="goToProductDetail({{ $product->id }})">
                 <!-- Card decoration -->
-                <a href="{{ route('produk.show', $product->id) }}">
-                    <div
-                        class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl">
+                <div
+                    class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl">
+                </div>
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                            class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
                     </div>
-                    <div class="relative z-10 flex flex-col h-full">
-                        <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                        </div>
-                        <h3 class="font-semibold text-[#74512D] mb-3 text-xl leading-tight h-14 flex items-center">
-                            {{ $product->name }}</h3>
-                        <div class="flex-grow">
-                            <p class="text-sm text-gray-600 mb-3 line-clamp-2 h-10">{{ $product->description }}
-                            </p>
-                            <!-- Size Options for Fashion Items -->
+                    <h3 class="font-semibold text-[#74512D] mb-3 text-xl leading-tight h-14 flex items-center">
+                        {{ $product->name }}</h3>
+                    <div class="flex-grow">
+                        <p class="text-sm text-gray-600 mb-3 line-clamp-2 h-10">{{ $product->description }}
+                        </p>
+                        <!-- Size Options Based on Category -->
+                        
+                        @if($categoryName === 'fashion')
+                            <!-- Fashion sizes: S, M, L, XL -->
                             <div class="mb-3">
                                 <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                                <div class="flex gap-1">
-                                    <span
-                                        class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors"
-                                        data-size="S">S</span>
-                                    <span
-                                        class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors"
-                                        data-size="M">M</span>
-                                    <span
-                                        class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors"
-                                        data-size="L">L</span>
-                                    <span
-                                        class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors"
-                                        data-size="XL">XL</span>
+                                <div class="flex gap-1 flex-wrap">
+                                    @foreach(['S', 'M', 'L', 'XL'] as $size)
+                                        <span
+                                            class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors"
+                                            data-size="{{ $size }}" data-product-id="{{ $product->id }}">{{ $size }}</span>
+                                    @endforeach
                                 </div>
                             </div>
-                            <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp
-                                {{ number_format($product->price, 0, ',', '.') }}</p>
-                        </div>
-                        <div class="flex gap-2 mt-auto">
-                            <button
-                                class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                                Beli Sekarang
-                            </button>
-                            <button
-                                class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4v16m8-8H4">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
+                        @elseif($categoryName === 'alas kaki')
+                            <!-- Shoe sizes: 38-44 -->
+                            <div class="mb-3">
+                                <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
+                                <div class="flex gap-1 flex-wrap">
+                                    @for($size = 38; $size <= 44; $size++)
+                                        <span
+                                            class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors"
+                                            data-size="{{ $size }}" data-product-id="{{ $product->id }}">{{ $size }}</span>
+                                    @endfor
+                                </div>
+                            </div>
+                        @elseif($categoryName === 'tas')
+                            <!-- No size options for bags -->
+                            <div class="mb-3">
+                                <div class="bg-[#F2E7D8] border border-[#74512D]/30 rounded-lg p-2">
+                                    <p class="text-[#74512D] font-medium text-xs text-center">
+                                        Produk ini tidak memerlukan pilihan ukuran
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+                        <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp
+                            {{ number_format($product->price, 0, ',', '.') }}</p>
                     </div>
-                </a>
-            </div>
-<<<<<<< HEAD
-        </div>
-
-        <!-- Product Card 2: Celana Jeans Slim Fit -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="fashion" data-size="S,M,L,XL" data-price="150000" data-brand="jeans" data-id="2" onclick="goToProductDetail(2)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Celana Jeans Slim Fit" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Celana Jeans Denim Stretch</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Celana jeans premium dengan bahan denim stretch yang nyaman dan fleksibel untuk aktivitas sehari-hari.
-                    </p>
-                    <!-- Size Options for Fashion Items -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1">
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="S">S</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="M">M</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="L">L</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="XL">XL</span>
-                        </div>
+                    <div class="flex gap-2 mt-auto">
+                        <button
+                            class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200"
+                            onclick="event.stopPropagation(); addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }}, '{{ $product->description }}', '{{ $product->image }}', '{{ $categoryName }}', true)">
+                            Beli Sekarang
+                        </button>
+                        <button
+                            class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                            onclick="event.stopPropagation(); addToCart({{ $product->id }}, '{{ $product->name }}', {{ $product->price }}, '{{ $product->description }}', '{{ $product->image }}', '{{ $categoryName }}')"
+                            title="Tambah ke Keranjang">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"></path>
+                            </svg>
+                        </button>
                     </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 150.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
                 </div>
             </div>
-        </div>
-
-        <!-- Product Card 3: Jaket Hoodie Casual -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="fashion" data-size="M,L,XL" data-price="200000" data-brand="hoodie" data-id="3" onclick="goToProductDetail(3)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Jaket Hoodie Casual" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Jaket Hoodie Fleece Premium</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Jaket hoodie premium dengan bahan fleece berkualitas tinggi, hangat dan nyaman untuk cuaca dingin.
-                    </p>
-                    <!-- Size Options for Fashion Items -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1">
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="S">S</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="M">M</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="L">L</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="XL">XL</span>
-                        </div>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 200.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 4: Tas Ransel Laptop -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="tas" data-size="" data-price="200000" data-brand="ransel" data-id="4" onclick="goToProductDetail(4)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Tas Ransel Laptop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Tas Ransel Multifungsi Pro</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Tas ransel multifungsi dengan kompartemen laptop dan desain ergonomis untuk profesional.
-                    </p>
-                    <!-- No Size Options for Bags -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <p class="text-xs text-gray-500 italic">Tidak ada ukuran</p>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 200.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 5: Kemeja Formal Premium -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="fashion" data-size="S,M,L,XL" data-price="180000" data-brand="formal" data-id="1" onclick="goToProductDetail(1)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Kemeja Formal Premium" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Kemeja Formal Premium</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Kemeja formal berkualitas tinggi dengan bahan katun premium, cocok untuk acara formal dan bisnis.
-                    </p>
-                    <!-- Size Options for Fashion Items -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1">
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="S">S</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="M">M</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="L">L</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="XL">XL</span>
-                        </div>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 180.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 6: Tas Selempang Kulit Premium -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="tas" data-size="" data-price="250000" data-brand="kulit" data-id="6" onclick="goToProductDetail(4)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Tas Selempang Kulit Premium" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Tas Selempang Kulit Premium</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Tas selempang kulit asli dengan desain elegan dan kualitas premium untuk gaya hidup modern.
-                    </p>
-                    <!-- No Size Options for Bags -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <p class="text-xs text-gray-500 italic">Tidak ada ukuran</p>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 250.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 7: Sepatu Sneakers Casual -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="38,39,40,41,42,43,44" data-price="300000" data-brand="sneakers" data-id="7" onclick="goToProductDetail(5)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Sepatu Sneakers Casual" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Sepatu Sneakers Casual</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Sepatu sneakers casual dengan desain modern dan bahan berkualitas tinggi untuk kenyamanan maksimal.
-                    </p>
-                    <!-- Size Options for Shoes -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1 flex-wrap">
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="38">38</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="39">39</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="40">40</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="41">41</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="42">42</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="43">43</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="44">44</span>
-                        </div>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 300.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 8: Sepatu Formal Kulit Premium -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="38,39,40,41,42,43,44" data-price="450000" data-brand="formal" data-id="8" onclick="goToProductDetail(5)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Sepatu Formal Kulit Premium" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Sepatu Formal Kulit Premium</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Sepatu formal kulit asli dengan desain klasik dan kualitas premium untuk acara formal dan bisnis.
-                    </p>
-                    <!-- Size Options for Shoes -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1 flex-wrap">
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="38">38</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="39">39</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="40">40</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="41">41</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="42">42</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="43">43</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="44">44</span>
-                        </div>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 450.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Card 9: Sepatu Olahraga Running Pro -->
-        <div class="product-card bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full" data-category="sepatu" data-size="38,39,40,41,42,43,44" data-price="400000" data-brand="running" data-id="9" onclick="goToProductDetail(5)">
-            <!-- Card decoration -->
-            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl"></div>
-            <div class="relative z-10">
-                <div class="aspect-square rounded-xl mb-4 overflow-hidden shadow-lg">
-                    <img src="{{ asset('images/hero5.png') }}" alt="Sepatu Olahraga Running Pro" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                </div>
-                <h3 class="h-14 flex items-center font-semibold text-[#74512D] mb-3 text-xl leading-tight">Sepatu Olahraga Running Pro</h3>
-                <div class="flex-grow">
-                    <p class="h-10 text-sm text-gray-600 mb-3 line-clamp-2">
-                        Sepatu olahraga profesional dengan teknologi cushioning terdepan untuk performa lari maksimal.
-                    </p>
-                    <!-- Size Options for Shoes -->
-                    <div class="mb-3">
-                        <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
-                        <div class="flex gap-1 flex-wrap">
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="38">38</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="39">39</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="40">40</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="41">41</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="42">42</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="43">43</span>
-                            <span class="size-option px-2 py-1 text-xs bg-[#F2E7D8] text-[#74512D] rounded border border-[#D4AF37]/30 font-medium cursor-pointer hover:bg-[#8B5A2B] hover:text-white transition-colors" data-size="44">44</span>
-                        </div>
-                    </div>
-                    <p class="text-[#FF6B6B] font-bold text-lg mb-4">Rp 400.000</p>
-                </div>
-                <div class="flex gap-2 mt-auto">
-                    <button class="flex-[2] bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200">
-                        Beli Sekarang
-                    </button>
-                    <button class="flex-[1] border border-[#74512D] bg-transparent hover:bg-[#F2E7D8] text-[#74512D] font-medium py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-=======
         @empty
-            <p class="text-center text-gray-500">Belum ada produk tersedia.</p>
+            @php $query = request('q'); @endphp
+            @if(!empty($query))
+                <p class="text-center text-[#74512D] font-medium">Pencarian tidak ditemukan</p>
+            @else
+                <p class="text-center text-gray-500">Belum ada produk tersedia.</p>
+            @endif
         @endforelse
->>>>>>> 3e16c815c426d18232ef866f9545c1a2388e3962
     </div>
+    <!-- Pesan ketika hasil filter kosong -->
+    <div id="no-products-message" class="hidden text-center text-[#74512D] font-medium py-6">Produk tidak ditemukan</div>
 </div>
 
 <script>
@@ -464,12 +198,19 @@
 
             // Size filter
             if (currentFilters.sizes.length > 0) {
-                const cardSizes = card.getAttribute('data-size').toLowerCase().split(',');
-                const hasMatchingSize = currentFilters.sizes.some(size =>
-                    cardSizes.includes(size.toLowerCase())
-                );
-                if (!hasMatchingSize) {
+                const cardSizeData = card.getAttribute('data-size');
+                // Jika produk tidak memiliki ukuran (seperti tas), sembunyikan ketika filter ukuran aktif
+                if (!cardSizeData || cardSizeData.trim() === '') {
                     shouldShow = false;
+                } else {
+                    // Jika produk memiliki ukuran, cek apakah cocok dengan filter
+                    const cardSizes = cardSizeData.toLowerCase().split(',');
+                    const hasMatchingSize = currentFilters.sizes.some(size =>
+                        cardSizes.includes(size.toLowerCase())
+                    );
+                    if (!hasMatchingSize) {
+                        shouldShow = false;
+                    }
                 }
             }
 
@@ -482,7 +223,8 @@
             // Brand search filter
             if (currentFilters.brandSearch) {
                 const cardBrand = card.getAttribute('data-brand').toLowerCase();
-                const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+                const cardTitle = card.getAttribute('data-title').toLowerCase();
+
                 if (!cardBrand.includes(currentFilters.brandSearch.toLowerCase()) &&
                     !cardTitle.includes(currentFilters.brandSearch.toLowerCase())) {
                     shouldShow = false;
@@ -497,6 +239,16 @@
         const productCountElement = document.getElementById('product-count');
         if (productCountElement) {
             productCountElement.textContent = `${visibleCount} Produk`;
+        }
+
+        // Tampilkan pesan kosong jika tidak ada produk yang terlihat
+        const noMsg = document.getElementById('no-products-message');
+        if (noMsg) {
+            if (visibleCount === 0) {
+                noMsg.classList.remove('hidden');
+            } else {
+                noMsg.classList.add('hidden');
+            }
         }
     }
 
@@ -574,7 +326,7 @@
             option.addEventListener('click', function(e) {
                 e.stopPropagation(); // Prevent card click event
                 const productCard = this.closest('.product-card');
-                const productId = productCard.getAttribute('data-id');
+                const productId = this.getAttribute('data-product-id');
                 selectSize(this, productId);
             });
         });
@@ -625,6 +377,13 @@
 
         // Store in localStorage for persistence
         localStorage.setItem('selectedSizes', JSON.stringify(selectedSizes));
+        
+        // Pass selected size to product detail page when clicking the product card
+        const productLink = productCard.querySelector('a');
+        if (productLink && selectedSizes[productId]) {
+            const baseUrl = productLink.href.split('?')[0];
+            productLink.href = `${baseUrl}?size=${selectedSizes[productId]}`;
+        }
     }
 
     // Function to navigate to product detail page
@@ -632,13 +391,142 @@
         // Get selected size for this product
         const selectedSize = selectedSizes[productId] || null;
 
-        // Create URL with size parameter if size is selected
-        let url = `/produk/${productId}`;
+        // Create URL with size parameter and from parameter
+        let url = `/produk/${productId}?from=produk`;
         if (selectedSize) {
-            url += `?size=${selectedSize}`;
+            url += `&size=${selectedSize}`;
         }
 
         // Navigate to product detail page
         window.location.href = url;
     }
+
+    // Function to add product to cart
+function addToCart(productId, productName, productPrice, productDescription, productImage, categoryName, redirectToCheckout = false) {
+        // Get selected size for this product
+        const selectedSize = selectedSizes[productId] || null;
+        
+        // Check if size is required but not selected
+        if ((categoryName === 'fashion' || categoryName === 'alas kaki') && !selectedSize) {
+            showNotification('Silakan pilih ukuran terlebih dahulu!', 'error');
+            return;
+        }
+
+        // Prepare form data
+        const formData = new FormData();
+        formData.append('product_id', productId);
+        formData.append('size', selectedSize || '');
+        formData.append('quantity', 1);
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+        // Send AJAX request
+        fetch(`/keranjang/add/${productId}`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification(data.message, 'success');
+                updateCartCount();
+                if (redirectToCheckout) {
+                    setTimeout(() => {
+                        window.location.href = '/checkout';
+                    }, 1200);
+                }
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Terjadi kesalahan saat menambahkan produk ke keranjang', 'error');
+        });
+    }
+
+    // Function to show notification
+    function showNotification(message, type = 'info') {
+        // Remove existing notification
+        const existingNotification = document.getElementById('notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.id = 'notification';
+        notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out translate-x-full`;
+        
+        // Set notification style based on type
+        if (type === 'success') {
+            notification.className += ' bg-green-500 text-white';
+        } else if (type === 'error') {
+            notification.className += ' bg-red-500 text-white';
+        } else {
+            notification.className += ' bg-blue-500 text-white';
+        }
+
+        notification.innerHTML = `
+            <div class="flex items-center gap-3">
+                <div class="flex-1">${message}</div>
+                <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-gray-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        `;
+
+        // Add to page
+        document.body.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }
+        }, 5000);
+    }
+
+    // Function to update cart count
+    function updateCartCount() {
+        fetch('/cart/count', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const cartBadge = document.getElementById('cart-count');
+            if (cartBadge) {
+                cartBadge.textContent = data.count;
+                // Samakan dengan navbar: gunakan display:flex agar angka tepat di tengah
+                cartBadge.style.display = data.count > 0 ? 'flex' : 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Error updating cart count:', error);
+        });
+    }
+
+    // Initialize cart count on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartCount();
+    });
 </script>

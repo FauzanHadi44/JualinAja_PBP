@@ -29,9 +29,7 @@
                     <label class="flex items-center cursor-pointer group p-2 rounded-lg hover:bg-[#8B5A2B]/5 transition-all duration-200">
                         <input id="fashion" type="checkbox" name="category" value="fashion" class="w-4 h-4 cursor-pointer category-filter accent-[#8B5A2B] mr-3 rounded transition-all duration-200 transform group-hover:scale-110" />
                         <span class="text-[#74512D] group-hover:text-[#8B5A2B] font-medium text-sm transition-all duration-200 flex items-center gap-2">
-                            <svg class="w-4 h-4 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
+                            <i class="fa-solid fa-shirt opacity-60 group-hover:opacity-100 text-[16px]"></i>
                             Fashion
                         </span>
                     </label>
@@ -45,12 +43,10 @@
                         </span>
                     </label>
                     <label class="flex items-center cursor-pointer group p-2 rounded-lg hover:bg-[#8B5A2B]/5 transition-all duration-200">
-                        <input id="sepatu" type="checkbox" name="category" value="sepatu" class="w-4 h-4 cursor-pointer category-filter accent-[#8B5A2B] mr-3 rounded transition-all duration-200 transform group-hover:scale-110" />
+                        <input id="alas-kaki" type="checkbox" name="category" value="alas kaki" class="w-4 h-4 cursor-pointer category-filter accent-[#8B5A2B] mr-3 rounded transition-all duration-200 transform group-hover:scale-110" />
                         <span class="text-[#74512D] group-hover:text-[#8B5A2B] font-medium text-sm transition-all duration-200 flex items-center gap-2">
-                            <svg class="w-4 h-4 opacity-60 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                            </svg>
-                            Sepatu
+                            <i class="fa-solid fa-shoe-prints opacity-60 group-hover:opacity-100 text-[16px]"></i>
+                            Alas Kaki
                         </span>
                     </label>
                 </div>
@@ -67,9 +63,7 @@
                     <!-- Ukuran Pakaian -->
                     <div class="mb-4">
                         <p class="text-xs text-[#74512D] font-medium mb-2 flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
+                            <i class="fa-solid fa-shirt text-[12px]"></i>
                             Fashion
                         </p>
                         <div class="flex flex-wrap gap-2">
@@ -83,13 +77,11 @@
                     <!-- Pembatas -->
                     <div class="border-t border-[#8B5A2B]/20 my-4"></div>
                     
-                    <!-- Ukuran Sepatu -->
+                    <!-- Ukuran Alas Kaki -->
                     <div>
                         <p class="text-xs text-[#74512D] font-medium mb-2 flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                            </svg>
-                            Sepatu
+                            <i class="fa-solid fa-shoe-prints text-[12px]"></i>
+                            Alas Kaki
                         </p>
                         <div class="flex flex-wrap gap-2">
                             <button type="button" data-size="38" class="size-filter cursor-pointer border border-[#8B5A2B]/30 hover:border-[#8B5A2B] hover:bg-[#8B5A2B] hover:text-white rounded-lg text-[13px] text-[#74512D] font-medium py-2.5 px-3 min-w-14 transition-all duration-200 hover:shadow-md transform hover:scale-105 active:scale-95">38</button>
@@ -320,6 +312,46 @@ document.addEventListener('DOMContentLoaded', function() {
                     detail: { sizes: selectedSizes }
                 }));
                 console.log('Selected sizes:', selectedSizes);
+
+                // Sinkronkan kategori berdasarkan ukuran yang dipilih
+                const hasFashionSize = selectedSizes.some(s => ['s','m','l','xl'].includes(s));
+                const hasShoeSize = selectedSizes.some(s => ['38','39','40','41','42','43','44'].includes(s));
+                const allCategoryCheckboxes = document.querySelectorAll('.category-filter');
+
+                if (allCategoryCheckboxes.length > 0) {
+                    // Matikan "Semua" ketika ada ukuran dipilih
+                    const semuaCb = document.querySelector('input.category-filter[value="semua"]');
+                    if (semuaCb) semuaCb.checked = false;
+
+                    // Atur ceklis kategori sesuai kelompok ukuran
+                    const fashionCb = document.querySelector('input.category-filter[value="fashion"]');
+                    const alasKakiCb = document.querySelector('input.category-filter[value="alas kaki"]');
+                    const tasCb = document.querySelector('input.category-filter[value="tas"]');
+
+                    if (tasCb) tasCb.checked = false; // tas tidak punya ukuran, hindari konflik
+
+                    if (hasFashionSize && !hasShoeSize) {
+                        if (fashionCb) fashionCb.checked = true;
+                        if (alasKakiCb) alasKakiCb.checked = false;
+                    } else if (hasShoeSize && !hasFashionSize) {
+                        if (alasKakiCb) alasKakiCb.checked = true;
+                        if (fashionCb) fashionCb.checked = false;
+                    } else if (hasShoeSize && hasFashionSize) {
+                        // Kedua kelompok ukuran dipilih: tampilkan keduanya
+                        if (fashionCb) fashionCb.checked = true;
+                        if (alasKakiCb) alasKakiCb.checked = true;
+                    } else {
+                        // Tidak ada ukuran, biarkan kategori apa adanya
+                    }
+
+                    // Dispatch event kategori terkini
+                    const selectedCategories = Array.from(allCategoryCheckboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value);
+                    document.dispatchEvent(new CustomEvent('categoryFilterChanged', {
+                        detail: { categories: selectedCategories }
+                    }));
+                }
             });
             
             // Handle hover effects for non-selected buttons
@@ -384,8 +416,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Set default category from query string if provided
+    const initialCategoryRaw = "{{ request('category') }}".trim().toLowerCase();
+    // Normalisasi: jika query masih 'sepatu', ubah ke 'alas kaki'
+    const initialCategory = initialCategoryRaw === 'sepatu' ? 'alas kaki' : initialCategoryRaw;
     if (semuaFilter) {
-        semuaFilter.checked = true;
+        if (!initialCategory) {
+            // Default to "Semua" when no category specified
+            semuaFilter.checked = true;
+        } else {
+            semuaFilter.checked = false;
+        }
+    }
+
+    // Apply initial category selection and notify listeners
+    if (initialCategory) {
+        // Cari checkbox berdasarkan value agar robust terhadap perubahan id
+        const targetCheckbox = document.querySelector(`input.category-filter[value="${initialCategory}"]`);
+        if (targetCheckbox) {
+            targetCheckbox.checked = true;
+            // Uncheck others except selected
+            const categoryFiltersAll = document.querySelectorAll('.category-filter');
+            categoryFiltersAll.forEach(cb => {
+                if (cb !== targetCheckbox) cb.checked = false;
+            });
+            // Dispatch event for product list update
+            document.dispatchEvent(new CustomEvent('categoryFilterChanged', {
+                detail: { categories: [initialCategory] }
+            }));
+        }
     }
     
     const brandSearch = document.getElementById('brandSearch');
