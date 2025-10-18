@@ -76,12 +76,11 @@
                         <label for="image" class="text-base text-slate-900 font-medium mb-3 block">Upload Image</label>
                         <input type="file" name="image" id="image"
                             class="w-full text-slate-500 font-medium text-sm bg-white border 
-               file:cursor-pointer cursor-pointer file:border-0 
-               file:py-3 file:px-4 file:mr-4 file:bg-gray-100 
-               file:hover:bg-gray-200 file:text-slate-500 rounded" />
+                            file:cursor-pointer cursor-pointer file:border-0 
+                            file:py-3 file:px-4 file:mr-4 file:bg-gray-100 
+                            file:hover:bg-gray-200 file:text-slate-500 rounded" />
                         <p class="text-xs text-slate-500 mt-2">PNG, JPG, JPEG, WEBP, and GIF are allowed.</p>
 
-                        {{-- Tampilkan gambar lama --}}
                         @if ($products->image)
                             <img src="{{ asset('storage/' . $products->image) }}" alt="Product Image"
                                 class="mt-3 w-32 rounded border">
@@ -92,9 +91,7 @@
                         @enderror
                     </div>
 
-                    <!-- Stock & Is Active -->
                     <div class="w-full grid grid-cols-2 gap-4 mb-4 mt-4">
-                        <!-- Stock -->
                         <div>
                             <label for="stock" class="block text-gray-700 font-semibold mb-2">Stock</label>
                             <input type="number" name="stock" id="stock"
@@ -106,7 +103,6 @@
                             @enderror
                         </div>
 
-                        <!-- Is Active -->
                         <div>
                             <label for="is_active" class="block text-gray-700 font-semibold mb-2">Is Active</label>
                             <select name="is_active" id="is_active"
@@ -125,7 +121,6 @@
                 </div>
             </div>
 
-            <!-- Submit -->
             <div class="mt-6 flex flex-items justify-end">
                 <div class="m-5 space-x-2">
                     <a href="{{ route('admin.products.index') }}"

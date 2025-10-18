@@ -2,14 +2,11 @@
     class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width"
     aria-label="Sidebar">
     <div class="relative flex flex-col flex-1 min-h-0 pt-0 border-r border-amber-700/30 bg-gradient-to-br from-white/95 to-[#F8F5F0]/95;">
-        
-        <!-- Decorative overlay -->
         <div class="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/5 via-transparent to-[#D4AF37]/5"></div>
         
         <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto relative z-10">
             <div class="flex-1 px-3 space-y-1">
                 <ul class="pb-2 space-y-2">
-                    <!-- Dashboard -->
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
                             class="flex items-center p-3 text-base text-[#74512D] rounded-lg hover:bg-[#74512D]/20 hover:text-[#8B5A2B] group transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'bg-[#74512D]/30 text-[#8B5A2B] shadow-lg border border-[#74512D]/30' : '' }}">
@@ -133,7 +130,6 @@
                 <!-- Divider -->
                 <div class="pt-4 mt-4 space-y-2 border-t border-[#74512D]/30">
                     <ul class="space-y-2">
-                        <!-- Kembali ke Website -->
                         <li>
                             <a href="{{ route('beranda') }}"
                                 class="flex items-center p-3 text-base text-[#74512D] rounded-lg hover:bg-[#74512D]/20 hover:text-[#8B5A2B] group transition-all duration-200">
@@ -145,7 +141,6 @@
                             </a>
                         </li>
 
-                        <!-- Logout -->
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

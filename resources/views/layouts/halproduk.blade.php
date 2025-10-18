@@ -1,8 +1,6 @@
-<!-- Products Section -->
 <div class="px-4 py-4">
     <div class="flex justify-between items-start mb-8">
         <div class="text-left flex-1">
-            <!-- Back to Home Button -->
             <div class="mb-6">
                 <a href="/"
                     class="inline-flex items-center gap-3 px-6 py-3 bg-[#8B5A2B] text-white font-semibold rounded-xl hover:from-[#74512D] hover:to-[#8B5A2B] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group">
@@ -15,7 +13,6 @@
                 </a>
             </div>
 
-            <!-- Breadcrumb -->
             <nav aria-label="Breadcrumb" class="mb-4">
                 <ol class="flex items-center gap-2 text-sm text-[#74512D]">
                     <li>
@@ -50,7 +47,6 @@
                 </ol>
             </nav>
 
-            <!-- Title Section -->
             <div class="bg-gradient-to-r from-[#8B5A2B]/5 to-[#74512D]/5 rounded-2xl p-6 border border-[#8B5A2B]/20">
                 <h2 class="text-3xl font-bold text-[#8B5A2B] mb-3 md:text-4xl lg:text-5xl flex items-center gap-3">
                     <svg class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#8B5A2B]" fill="none"
@@ -66,7 +62,6 @@
         </div>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- Product Card 1: Kaos Polos Premium -->
         @forelse ($products as $product)
             @php
                 $categoryName = strtolower($product->category->name);
@@ -87,7 +82,6 @@
                 data-brand="{{ strtolower($product->name) }}"
                 data-title="{{ strtolower($product->name) }}"
                 onclick="goToProductDetail({{ $product->id }})">
-                <!-- Card decoration -->
                 <div
                     class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl">
                 </div>
@@ -100,11 +94,8 @@
                         {{ $product->name }}</h3>
                     <div class="flex-grow">
                         <p class="text-sm text-gray-600 mb-3 line-clamp-2 h-10">{{ $product->description }}
-                        </p>
-                        <!-- Size Options Based on Category -->
-                        
+                        </p>                        
                         @if($categoryName === 'fashion')
-                            <!-- Fashion sizes: S, M, L, XL -->
                             <div class="mb-3">
                                 <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
                                 <div class="flex gap-1 flex-wrap">
@@ -116,7 +107,6 @@
                                 </div>
                             </div>
                         @elseif($categoryName === 'alas kaki')
-                            <!-- Shoe sizes: 38-44 -->
                             <div class="mb-3">
                                 <p class="text-xs text-[#74512D] font-medium mb-2">Ukuran:</p>
                                 <div class="flex gap-1 flex-wrap">
@@ -128,7 +118,6 @@
                                 </div>
                             </div>
                         @elseif($categoryName === 'tas')
-                            <!-- No size options for bags -->
                             <div class="mb-3">
                                 <div class="bg-[#F2E7D8] border border-[#74512D]/30 rounded-lg p-2">
                                     <p class="text-[#74512D] font-medium text-xs text-center">
@@ -166,12 +155,10 @@
             @endif
         @endforelse
     </div>
-    <!-- Pesan ketika hasil filter kosong -->
     <div id="no-products-message" class="hidden text-center text-[#74512D] font-medium py-6">Produk tidak ditemukan</div>
 </div>
 
 <script>
-    // Global filter state
     let currentFilters = {
         categories: ['semua'],
         sizes: [],
@@ -179,7 +166,6 @@
         maxPrice: 500000,
         brandSearch: ''
     };
-
     // Apply all filters
     function applyFilters() {
         const productCards = document.querySelectorAll('.product-card');
@@ -187,7 +173,6 @@
 
         productCards.forEach(card => {
             let shouldShow = true;
-
             // Category filter
             if (!currentFilters.categories.includes('semua')) {
                 const cardCategory = card.getAttribute('data-category');
@@ -195,7 +180,6 @@
                     shouldShow = false;
                 }
             }
-
             // Size filter
             if (currentFilters.sizes.length > 0) {
                 const cardSizeData = card.getAttribute('data-size');
@@ -203,7 +187,7 @@
                 if (!cardSizeData || cardSizeData.trim() === '') {
                     shouldShow = false;
                 } else {
-                    // Jika produk memiliki ukuran, cek apakah cocok dengan filter
+                    // cek apakah produk memiliki ukuran yang cocok dengan filter
                     const cardSizes = cardSizeData.toLowerCase().split(',');
                     const hasMatchingSize = currentFilters.sizes.some(size =>
                         cardSizes.includes(size.toLowerCase())
@@ -273,36 +257,29 @@
         applyFilters();
     }
 
-    // Listen for filter events from parent page
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize filters on page load
         applyFilters();
-        // Listen for category filter changes
         document.addEventListener('categoryFilterChanged', function(e) {
             currentFilters.categories = e.detail.categories;
             applyFilters();
         });
 
-        // Listen for size filter changes
         document.addEventListener('sizeFilterChanged', function(e) {
             currentFilters.sizes = e.detail.sizes;
             applyFilters();
         });
 
-        // Listen for price filter changes
         document.addEventListener('priceFilterChanged', function(e) {
             currentFilters.minPrice = e.detail.minPrice;
             currentFilters.maxPrice = e.detail.maxPrice;
             applyFilters();
         });
 
-        // Listen for brand search changes
         document.addEventListener('brandSearchChanged', function(e) {
             currentFilters.brandSearch = e.detail.searchTerm;
             applyFilters();
         });
 
-        // Listen for clear all filters
         document.addEventListener('clearAllFilters', function() {
             currentFilters = {
                 categories: ['semua'],
@@ -314,24 +291,20 @@
             applyFilters();
         });
 
-        // Initialize size selection functionality
-        // Load selected sizes from localStorage
         const storedSizes = localStorage.getItem('selectedSizes');
         if (storedSizes) {
             selectedSizes = JSON.parse(storedSizes);
         }
 
-        // Add click event listeners to all size options
         document.querySelectorAll('.size-option').forEach(option => {
             option.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent card click event
+                e.stopPropagation(); 
                 const productCard = this.closest('.product-card');
                 const productId = this.getAttribute('data-product-id');
                 selectSize(this, productId);
             });
         });
 
-        // Restore selected sizes from localStorage
         Object.keys(selectedSizes).forEach(productId => {
             const productCard = document.querySelector(`[data-id="${productId}"]`);
             if (productCard) {
@@ -345,18 +318,13 @@
         });
     });
 
-    // Global variable to store selected sizes for each product
     let selectedSizes = {};
-
-    // Function to handle size selection
     function selectSize(element, productId) {
         const productCard = element.closest('.product-card');
         const selectedSize = element.getAttribute('data-size');
 
-        // Check if this size is already selected
         const isCurrentlySelected = element.classList.contains('bg-[#8B5A2B]');
 
-        // Remove selected class from all size options in this product card
         const sizeOptions = productCard.querySelectorAll('.size-option');
         sizeOptions.forEach(option => {
             option.classList.remove('bg-[#8B5A2B]', 'text-white');
@@ -364,21 +332,16 @@
         });
 
         if (isCurrentlySelected) {
-            // If clicking the same size again, unselect it
             delete selectedSizes[productId];
             console.log(`Unselected size for product ${productId}`);
         } else {
-            // Select the new size
             element.classList.remove('bg-[#F2E7D8]', 'text-[#74512D]');
             element.classList.add('bg-[#8B5A2B]', 'text-white');
             selectedSizes[productId] = selectedSize;
             console.log(`Selected size ${selectedSize} for product ${productId}`);
         }
 
-        // Store in localStorage for persistence
         localStorage.setItem('selectedSizes', JSON.stringify(selectedSizes));
-        
-        // Pass selected size to product detail page when clicking the product card
         const productLink = productCard.querySelector('a');
         if (productLink && selectedSizes[productId]) {
             const baseUrl = productLink.href.split('?')[0];
@@ -386,40 +349,31 @@
         }
     }
 
-    // Function to navigate to product detail page
     function goToProductDetail(productId) {
-        // Get selected size for this product
         const selectedSize = selectedSizes[productId] || null;
 
-        // Create URL with size parameter and from parameter
         let url = `/produk/${productId}?from=produk`;
         if (selectedSize) {
             url += `&size=${selectedSize}`;
         }
 
-        // Navigate to product detail page
         window.location.href = url;
     }
 
-    // Function to add product to cart
-function addToCart(productId, productName, productPrice, productDescription, productImage, categoryName, redirectToCheckout = false) {
-        // Get selected size for this product
+    function addToCart(productId, productName, productPrice, productDescription, productImage, categoryName, redirectToCheckout = false) {
         const selectedSize = selectedSizes[productId] || null;
         
-        // Check if size is required but not selected
         if ((categoryName === 'fashion' || categoryName === 'alas kaki') && !selectedSize) {
             showNotification('Silakan pilih ukuran terlebih dahulu!', 'error');
             return;
         }
 
-        // Prepare form data
         const formData = new FormData();
         formData.append('product_id', productId);
         formData.append('size', selectedSize || '');
         formData.append('quantity', 1);
         formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
-        // Send AJAX request
         fetch(`/keranjang/add/${productId}`, {
             method: 'POST',
             body: formData,
@@ -489,7 +443,6 @@ function addToCart(productId, productName, productPrice, productDescription, pro
             notification.classList.remove('translate-x-full');
         }, 100);
 
-        // Auto remove after 5 seconds
         setTimeout(() => {
             if (notification.parentElement) {
                 notification.classList.add('translate-x-full');
@@ -502,7 +455,6 @@ function addToCart(productId, productName, productPrice, productDescription, pro
         }, 5000);
     }
 
-    // Function to update cart count
     function updateCartCount() {
         fetch('/cart/count', {
             method: 'GET',
@@ -516,7 +468,6 @@ function addToCart(productId, productName, productPrice, productDescription, pro
             const cartBadge = document.getElementById('cart-count');
             if (cartBadge) {
                 cartBadge.textContent = data.count;
-                // Samakan dengan navbar: gunakan display:flex agar angka tepat di tengah
                 cartBadge.style.display = data.count > 0 ? 'flex' : 'none';
             }
         })
@@ -525,7 +476,6 @@ function addToCart(productId, productName, productPrice, productDescription, pro
         });
     }
 
-    // Initialize cart count on page load
     document.addEventListener('DOMContentLoaded', function() {
         updateCartCount();
     });

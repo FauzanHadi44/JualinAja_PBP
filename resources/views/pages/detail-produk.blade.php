@@ -17,11 +17,9 @@
                 </li>
                 
                 @php
-                    // Check if coming from product page via URL parameter
                     $fromPage = request()->get('from', 'home');
                 @endphp
                 
-                <!-- Always show Produk breadcrumb -->
                 <li class="rtl:rotate-180">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8B5A2B]/50" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
@@ -29,7 +27,6 @@
                 </li>
                 <li>
                     @if($fromPage === 'home')
-                        <!-- Link to homepage section produk -->
                         <a href="/#produk-kami" class="flex items-center gap-1 transition-colors text-[#74512D] hover:text-[#8B5A2B] font-medium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
@@ -37,7 +34,6 @@
                             <span>Produk</span>
                         </a>
                     @else
-                        <!-- Link to product page -->
                         <a href="/produk" class="flex items-center gap-1 transition-colors text-[#74512D] hover:text-[#8B5A2B] font-medium">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>

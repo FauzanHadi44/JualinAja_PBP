@@ -31,14 +31,11 @@
                 <div class="sm:flex sm:gap-3">
                     @auth
                         <a class="group relative inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-[#74512D] bg-transparent text-[#74512D] hover:bg-[#74512d] hover:text-white hover:border-transparent hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95" href="{{ route('cart.index') }}">
-                            <!-- Cart Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                 <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                             </svg>
-                            <!-- Cart Count Badge -->
                             <span id="cart-count" class="absolute -top-1 -right-1 bg-[#74512D] text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center min-w-[16px] text-[10px]" style="display: none;">0</span>
                         </a>
-                        <!-- Orders History Icon -->
                         <a class="group relative inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-[#74512D] bg-transparent text-[#74512D] hover:bg-[#74512d] hover:text-white hover:border-transparent hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95" href="{{ route('orders.index') }}" title="Riwayat Transaksi">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd" d="M6.75 3A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h10.5A2.25 2.25 0 0019.5 18.75V7.06a2.25 2.25 0 00-.659-1.591l-3.81-3.81A2.25 2.25 0 0012.44 1.5H6.75zm6.44 1.5a.75.75 0 01.53.22l3.56 3.56a.75.75 0 01.22.53v9.94a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V5.25a.75.75 0 01.75-.75h6.44z" clip-rule="evenodd" />
@@ -47,14 +44,11 @@
                         </a>
                     @else
                         <button onclick="showLoginNotification()" class="group relative inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-[#74512D] bg-transparent text-[#74512D] hover:bg-[#74512d] hover:text-white hover:border-transparent hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95">
-                            <!-- Cart Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                 <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                             </svg>
-                            <!-- Cart Count Badge (guest) -->
                             <span id="cart-count" class="absolute -top-1 -right-1 bg-[#74512D] text-white font-bold rounded-full h-4 w-4 flex items-center justify-center leading-none text-[10px] text-center" style="display: none;">0</span>
                         </button>
-                        <!-- Orders History Icon (guest prompts login) -->
                         <button onclick="showLoginNotification()" class="group relative inline-flex items-center justify-center p-2.5 rounded-lg border-2 border-[#74512D] bg-transparent text-[#74512D] hover:bg-[#74512d] hover:text-white hover:border-transparent hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95" title="Riwayat Transaksi">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                 <path fill-rule="evenodd" d="M6.75 3A2.25 2.25 0 004.5 5.25v13.5A2.25 2.25 0 006.75 21h10.5A2.25 2.25 0 0019.5 18.75V7.06a2.25 2.25 0 00-.659-1.591l-3.81-3.81A2.25 2.25 0 0012.44 1.5H6.75zm6.44 1.5a.75.75 0 01.53.22l3.56 3.56a.75.75 0 01.22.53v9.94a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V5.25a.75.75 0 01.75-.75h6.44z" clip-rule="evenodd" />
@@ -81,7 +75,6 @@
                         </a>
                     </div>
                 @else
-                    <!-- User Profile Dropdown -->
                     <div class="relative">
                         <button id="user-menu-button" class="flex items-center space-x-2 px-4 py-2 rounded-full border-2 border-[#74512D] bg-[#74512D] text-white hover:bg-transparent hover:text-[#74512D] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#74512D] focus:ring-offset-2" aria-expanded="false" aria-haspopup="true">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +86,6 @@
                             </svg>
                         </button>
                         
-                        <!-- Dropdown Menu -->
                         <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-[#F2E7D8] rounded-lg shadow-lg border border-[#8B5A2B]/30 z-50">
                             <div class="py-1">
                                 <form method="POST" action="{{ route('logout') }}">
@@ -115,7 +107,6 @@
 </nav>
 
 <script>
-    // Toggle dropdown menu
     document.addEventListener('DOMContentLoaded', function() {
         const userMenuButton = document.getElementById('user-menu-button');
         const userDropdown = document.getElementById('user-dropdown');
@@ -127,7 +118,6 @@
                 userMenuButton.setAttribute('aria-expanded', isExpanded);
             });
             
-            // Close dropdown when clicking outside
             document.addEventListener('click', function(event) {
                 if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
                     userDropdown.classList.add('hidden');
@@ -137,9 +127,7 @@
         }
     });
 
-    // Function to show login notification
     function showLoginNotification() {
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = 'fixed top-20 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
         notification.innerHTML = `
@@ -158,12 +146,10 @@
         
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(() => {
             notification.classList.remove('translate-x-full');
         }, 100);
         
-        // Auto remove after 3 seconds
         setTimeout(() => {
             notification.classList.add('translate-x-full');
             setTimeout(() => {
@@ -174,7 +160,6 @@
         }, 3000);
     }
 
-    // Function to update cart count
     function updateCartCount() {
         fetch('{{ route("cart.count") }}')
             .then(response => response.json())
@@ -194,11 +179,9 @@
             });
     }
 
-    // Update cart count when page loads
     document.addEventListener('DOMContentLoaded', function() {
         updateCartCount();
     });
 
-    // Make updateCartCount available globally
     window.updateCartCount = updateCartCount;
 </script>

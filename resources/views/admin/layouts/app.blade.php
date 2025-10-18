@@ -17,10 +17,8 @@
 </head>
 
 <body class="min-h-screen" style="background:#FDFAF6; position: relative;">
-    <!-- Background overlay untuk konsistensi dengan beranda -->
     <div class="fixed inset-0 bg-gradient-to-r from-[#D4AF37]/5 via-transparent to-[#D4AF37]/5 pointer-events-none"></div>
     
-    <!-- Decorative elements -->
     <div class="fixed inset-0 pointer-events-none">
         <div class="absolute top-20 left-20 w-3 h-3 bg-[#D4AF37] rounded-full animate-bounce opacity-30" style="animation-delay: 0s;"></div>
         <div class="absolute top-32 right-32 w-2 h-2 bg-[#F4E976] rounded-full animate-bounce opacity-20" style="animation-delay: 1s;"></div>
@@ -40,7 +38,6 @@
             </main>
         </div>
 
-        <!-- Flowbite and template JS (copy to public/vendor/flowbite/js/) -->
         <script src="{{ asset('build/assets/js/index.js') }}"></script>
         <script src="{{ asset('build/assets/js/sidebar.js') }}"></script>
         @stack('scripts')

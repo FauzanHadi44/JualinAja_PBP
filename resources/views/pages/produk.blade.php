@@ -60,7 +60,6 @@
                     Size
                 </h6>
                 <div class="mt-4">
-                    <!-- Ukuran Pakaian -->
                     <div class="mb-4">
                         <p class="text-xs text-[#74512D] font-medium mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-shirt text-[12px]"></i>
@@ -74,10 +73,8 @@
                         </div>
                     </div>
                     
-                    <!-- Pembatas -->
                     <div class="border-t border-[#8B5A2B]/20 my-4"></div>
                     
-                    <!-- Ukuran Alas Kaki -->
                     <div>
                         <p class="text-xs text-[#74512D] font-medium mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-shoe-prints text-[12px]"></i>
@@ -207,7 +204,6 @@
             </div>
         </div>
         
-        <!-- Products Section -->
         <div class="flex-1">
             @include('layouts.halproduk')
         </div>
@@ -218,7 +214,6 @@
 @section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Price Range Slider Functionality
     const minRange = document.getElementById('minRange');
     const maxRange = document.getElementById('maxRange');
     const minPrice = document.getElementById('minPrice');
@@ -231,13 +226,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let minVal = parseInt(minRange.value);
         let maxVal = parseInt(maxRange.value);
         
-        // Ensure minimum value is not negative
         if (minVal < 0) {
             minVal = 0;
             minRange.value = 0;
         }
         
-        // Ensure min is not greater than max
         if (minVal >= maxVal) {
             if (maxVal <= 1000) {
                 minRange.value = 0;
@@ -254,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
         activeTrack.style.left = minPercent + '%';
         activeTrack.style.width = (maxPercent - minPercent) + '%';
         
-        // Format price display
         const formatPrice = (price) => {
             if (price === 0) return 'Rp0';
             return 'Rp' + price.toLocaleString('id-ID');
@@ -263,7 +255,6 @@ document.addEventListener('DOMContentLoaded', function() {
         minPrice.textContent = formatPrice(minVal);
         maxPrice.textContent = formatPrice(maxVal);
         
-        // Dispatch event to update products
         document.dispatchEvent(new CustomEvent('priceFilterChanged', {
             detail: { 
                 minPrice: minVal, 
@@ -277,10 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
         maxRange.addEventListener('input', updatePriceRange);
     }
     
-    // Initialize price range
     updatePriceRange();
     
-    // Size Filter Functionality
     const sizeFilters = document.querySelectorAll('.size-filter');
     let selectedSizes = [];
     
@@ -290,7 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const size = this.dataset.size;
                 
                 if (this.classList.contains('bg-[#8B5A2B]')) {
-                    // Remove selection
                     this.classList.remove('border-[#8B5A2B]', 'bg-[#8B5A2B]', 'text-white');
                     this.classList.add('border-[#8B5A2B]/30', 'text-[#74512D]');
                     this.style.backgroundColor = '';
@@ -298,7 +286,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.style.borderColor = '';
                     selectedSizes = selectedSizes.filter(s => s !== size);
                 } else {
-                    // Add selection
                     this.classList.remove('border-[#8B5A2B]/30', 'text-[#74512D]');
                     this.classList.add('border-[#8B5A2B]', 'bg-[#8B5A2B]', 'text-white');
                     this.style.backgroundColor = '#8B5A2B';
@@ -307,13 +294,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     selectedSizes.push(size);
                 }
                 
-                // Dispatch event to update products
                 document.dispatchEvent(new CustomEvent('sizeFilterChanged', {
                     detail: { sizes: selectedSizes }
                 }));
                 console.log('Selected sizes:', selectedSizes);
 
-                // Sinkronkan kategori berdasarkan ukuran yang dipilih
                 const hasFashionSize = selectedSizes.some(s => ['s','m','l','xl'].includes(s));
                 const hasShoeSize = selectedSizes.some(s => ['38','39','40','41','42','43','44'].includes(s));
                 const allCategoryCheckboxes = document.querySelectorAll('.category-filter');
@@ -323,12 +308,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const semuaCb = document.querySelector('input.category-filter[value="semua"]');
                     if (semuaCb) semuaCb.checked = false;
 
-                    // Atur ceklis kategori sesuai kelompok ukuran
                     const fashionCb = document.querySelector('input.category-filter[value="fashion"]');
                     const alasKakiCb = document.querySelector('input.category-filter[value="alas kaki"]');
                     const tasCb = document.querySelector('input.category-filter[value="tas"]');
 
-                    if (tasCb) tasCb.checked = false; // tas tidak punya ukuran, hindari konflik
+                    if (tasCb) tasCb.checked = false;
 
                     if (hasFashionSize && !hasShoeSize) {
                         if (fashionCb) fashionCb.checked = true;
@@ -337,14 +321,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (alasKakiCb) alasKakiCb.checked = true;
                         if (fashionCb) fashionCb.checked = false;
                     } else if (hasShoeSize && hasFashionSize) {
-                        // Kedua kelompok ukuran dipilih: tampilkan keduanya
                         if (fashionCb) fashionCb.checked = true;
                         if (alasKakiCb) alasKakiCb.checked = true;
                     } else {
-                        // Tidak ada ukuran, biarkan kategori apa adanya
                     }
 
-                    // Dispatch event kategori terkini
                     const selectedCategories = Array.from(allCategoryCheckboxes)
                         .filter(cb => cb.checked)
                         .map(cb => cb.value);
@@ -354,7 +335,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Handle hover effects for non-selected buttons
             button.addEventListener('mouseenter', function() {
                 if (!this.classList.contains('bg-[#8B5A2B]')) {
                     this.style.backgroundColor = '#8B5A2B';
@@ -373,7 +353,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Category Filter Functionality
     const categoryFilters = document.querySelectorAll('.category-filter');
     const semuaFilter = document.getElementById('semua');
     
@@ -381,7 +360,6 @@ document.addEventListener('DOMContentLoaded', function() {
         categoryFilters.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 if (this.value === 'semua') {
-                    // If "Semua" is checked, uncheck all others
                     if (this.checked) {
                         categoryFilters.forEach(cb => {
                             if (cb.value !== 'semua') {
@@ -390,12 +368,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                     }
                 } else {
-                    // If any specific category is checked, uncheck "Semua"
                     if (this.checked && semuaFilter) {
                         semuaFilter.checked = false;
                     }
                     
-                    // If no specific categories are checked, check "Semua"
                     const specificCategories = Array.from(categoryFilters).filter(cb => cb.value !== 'semua');
                     const anyChecked = specificCategories.some(cb => cb.checked);
                     if (!anyChecked && semuaFilter) {
@@ -407,7 +383,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     .filter(cb => cb.checked)
                     .map(cb => cb.value);
                 
-                // Dispatch event to update products
                 document.dispatchEvent(new CustomEvent('categoryFilterChanged', {
                     detail: { categories: selectedCategories }
                 }));
@@ -416,31 +391,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Set default category from query string if provided
     const initialCategoryRaw = "{{ request('category') }}".trim().toLowerCase();
-    // Normalisasi: jika query masih 'sepatu', ubah ke 'alas kaki'
     const initialCategory = initialCategoryRaw === 'sepatu' ? 'alas kaki' : initialCategoryRaw;
     if (semuaFilter) {
         if (!initialCategory) {
-            // Default to "Semua" when no category specified
             semuaFilter.checked = true;
         } else {
             semuaFilter.checked = false;
         }
     }
 
-    // Apply initial category selection and notify listeners
     if (initialCategory) {
-        // Cari checkbox berdasarkan value agar robust terhadap perubahan id
         const targetCheckbox = document.querySelector(`input.category-filter[value="${initialCategory}"]`);
         if (targetCheckbox) {
             targetCheckbox.checked = true;
-            // Uncheck others except selected
             const categoryFiltersAll = document.querySelectorAll('.category-filter');
             categoryFiltersAll.forEach(cb => {
                 if (cb !== targetCheckbox) cb.checked = false;
             });
-            // Dispatch event for product list update
             document.dispatchEvent(new CustomEvent('categoryFilterChanged', {
                 detail: { categories: [initialCategory] }
             }));
@@ -484,12 +452,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Reset brand search
         if (brandSearch) {
             brandSearch.value = '';
         }
         
-        // Dispatch event to clear all filters
         document.dispatchEvent(new CustomEvent('clearAllFilters'));
         console.log('All filters cleared');
         });

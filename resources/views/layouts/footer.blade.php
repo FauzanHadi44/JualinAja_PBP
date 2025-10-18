@@ -1,6 +1,5 @@
 <footer class="shadow-md bg-[#F2E7D8] border-t-2 border-[#74512D]/35">
     <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <!-- Logo dan Nama Perusahaan -->
         <div class="flex justify-center items-center mb-8">
             <div class="flex items-center space-x-3 group">
                 <div class="bg-gradient-to-br from-[#74512D] to-[#8B5A2B] p-3 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300">

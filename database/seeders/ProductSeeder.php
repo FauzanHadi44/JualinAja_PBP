@@ -14,7 +14,6 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Ambil kategori yang sudah ada
         $fashionCategory = Category::where('name', 'Fashion')->first();
         $tasCategory = Category::where('name', 'Tas')->first();
         $alasKakiCategory = Category::where('name', 'Alas Kaki')->first();

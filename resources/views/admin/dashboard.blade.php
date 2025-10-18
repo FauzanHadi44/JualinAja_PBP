@@ -9,9 +9,7 @@
             <p class="text-gray-600">Selamat datang di panel admin JualinAja. Kelola produk dan pantau statistik toko Anda.</p>
         </div>        
 
-        <!-- Category Statistics -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Category Breakdown -->
             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-semibold text-gray-800 flex items-center">
@@ -45,7 +43,6 @@
                 </div>
             </div>
 
-            <!-- Status Pesanan Masuk -->
             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-semibold text-gray-800 flex items-center">

@@ -52,7 +52,6 @@ class ProductController extends Controller
         // Simpan ke DB
         Product::create($validated);
 
-        // Redirect ke halaman view dengan pesan sukses
         return redirect()->route('admin.products.index')
             ->with('success', 'Product created successfully!');
     }

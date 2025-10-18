@@ -52,8 +52,8 @@
 
     <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-4xl w-full mx-4">
         <div class="flex">
-            <!-- Left Side - Logo/Brand -->
-             <div class="w-1/2 bg-[#F2E7D8] p-8 flex flex-col items-center justify-center">
+            <!-- Left Side -->
+            <div class="w-1/2 bg-[#F2E7D8] p-8 flex flex-col items-center justify-center">
                 <div class="flex justify-center items-center mb-8">
                     <div class="flex items-center space-x-3 group">
                         <div class="bg-[#F2E7D8] p-3 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300">
@@ -85,59 +85,50 @@
                 </div>
             </div>
 
-            <!-- Right Side - Login Form -->
+            <!-- Right Side -->
             <div class="w-1/2 p-8">
-                <!-- Header -->
                 <div class="mb-8">
                     <h2 class="text-2xl font-bold text-[#74512D] mb-2">Masuk ke Akun</h2>
                     <p class="text-[#74512D]/70">Selamat datang kembali!</p>
                 </div>
             
-            <!-- Login Form -->
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                
-                <!-- Email -->
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror">
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Password -->
-                <div class="mb-6">
-                    <div class="flex items-center justify-between mb-2">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-sm text-blue-600 hover:text-blue-500">Forget Password?</a>
-                        @endif
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror">
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <input id="password" type="password" name="password" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('password') border-red-500 @enderror">
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}" class="text-sm text-blue-600 hover:text-blue-500">Forget Password?</a>
+                            @endif
+                        </div>
+                        <input id="password" type="password" name="password" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('password') border-red-500 @enderror">
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
+                        Login
+                    </button>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-[#74512D]/70">
+                        Belum punya akun? 
+                        <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-500 font-medium">Daftar Sekarang</a>
+                    </p>
                 </div>
-
-                <!-- Login Button -->
-                <button type="submit" class="w-full bg-[#8B5A2B] hover:bg-[#74512D] text-white font-medium py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">
-                    Login
-                </button>
-            </form>
-
-            <!-- Sign Up Link -->
-                 <div class="mt-6 text-center">
-                     <p class="text-sm text-[#74512D]/70">
-                         Belum punya akun? 
-                         <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-500 font-medium">Daftar Sekarang</a>
-                     </p>
-                 </div>
-             </div>
-         </div>
-     </div>
-
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -30,14 +30,12 @@
 </div>
 
 <div class="max-w-7xl mx-auto px-4 mb-10 mt-4">
-    <!-- Title Section -->
     <div class="bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm shadow-xl rounded-2xl px-6 h-fit py-6 border-2 border-[#8B5A2B]/20">
         <h2 class="text-2xl font-bold text-[#8B5A2B] mb-3 md:text-3xl lg:text-2xl flex items-center gap-3"> 
             Kategori Pilihan
         </h2>
 
         <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <!-- Fashion -->
             <a href="{{ route('produk.indexsemua') }}?category=fashion" class="group block bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm border-2 border-[#8B5A2B]/20 rounded-2xl p-6 hover:shadow-xl hover:border-[#8B5A2B]/40 transition-all duration-300">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-shirt text-[#8B5A2B] group-hover:text-[#74512D] transition-colors text-xl"></i>
@@ -46,7 +44,6 @@
                 <p class="mt-2 text-sm text-[#74512D]/80">Lihat semua produk fashion.</p>
             </a>
     
-            <!-- Tas -->
             <a href="{{ route('produk.indexsemua') }}?category=tas" class="group block bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm border-2 border-[#8B5A2B]/20 rounded-2xl p-6 hover:shadow-xl hover:border-[#8B5A2B]/40 transition-all duration-300">
                 <div class="flex items-center gap-3">
                     <svg class="w-6 h-6 text-[#8B5A2B] group-hover:text-[#74512D] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +54,6 @@
                 <p class="mt-2 text-sm text-[#74512D]/80">Lihat semua produk tas.</p>
             </a>
     
-            <!-- Alas Kaki -->
             <a href="{{ route('produk.indexsemua') }}?category=alas kaki" class="group block bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm border-2 border-[#8B5A2B]/20 rounded-2xl p-6 hover:shadow-xl hover:border-[#8B5A2B]/40 transition-all duration-300">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-shoe-prints text-[#8B5A2B] group-hover:text-[#74512D] transition-colors text-xl"></i>

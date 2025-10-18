@@ -94,7 +94,7 @@ class ProdukController extends Controller
             return redirect()->route('login')->with('error', 'Anda harus login untuk checkout');
         }
 
-        // Pastikan masih ada item di keranjang
+        // mastikan item di keranjang
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
         if ($cartItems->isEmpty()) {
             if ($request->expectsJson()) {
@@ -103,7 +103,7 @@ class ProdukController extends Controller
             return redirect()->route('keranjang')->with('error', 'Keranjang kosong. Tambahkan produk terlebih dahulu.');
         }
 
-        // Validasi berdasarkan field pada form checkout
+        // Validasi data checkout
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
             'email' => 'required|email',

@@ -25,7 +25,6 @@
             @endphp
     
             @if ($categoryName === 'fashion')
-                {{-- Untuk fashion (baju, celana, jaket) --}}
                 <div class="mt-6">
                     <h3 class="text-lg font-medium text-slate-900">Pilih Ukuran</h3>
                     <div class="flex flex-wrap gap-2 mt-3" id="size-options">
@@ -38,7 +37,6 @@
                     </div>
                 </div>
             @elseif ($categoryName === 'sepatu')
-                {{-- Untuk sepatu --}}
                 <div class="mt-6">
                     <h3 class="text-lg font-medium text-slate-900">Pilih Ukuran</h3>
                     <div class="flex flex-wrap gap-2 mt-3" id="size-options">
@@ -51,7 +49,6 @@
                     </div>
                 </div>
             @elseif ($categoryName === 'tas')
-                {{-- Untuk tas --}}
                 <div class="mt-6" id="size-options">
                     <div class="bg-[#F2E7D8] border border-[#74512D]/30 rounded-lg p-3">
                         <p class="text-[#74512D] font-medium text-center text-sm">
@@ -60,9 +57,6 @@
                     </div>
                 </div>
             @endif
-
-
-            <!-- Quantity Selector -->
             <div class="mt-6">
                 <h3 class="text-lg font-medium text-slate-900 mb-3">Jumlah</h3>
                 <div class="flex items-center gap-3">
@@ -113,47 +107,38 @@
     const categoryName = '{{ $categoryName }}';
     
     document.addEventListener('DOMContentLoaded', function() {
-        // Get selected size from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const urlSelectedSize = urlParams.get('size');
 
-        // If there's a selected size from the product card, highlight it
         if (urlSelectedSize) {
             selectedSize = urlSelectedSize;
             const sizeButtons = document.querySelectorAll('.size-btn');
             sizeButtons.forEach(button => {
                 if (button.getAttribute('data-size') === urlSelectedSize) {
-                    // Apply selected styling with brown color
                     button.classList.remove('bg-[#F2E7D8]', 'text-[#74512D]', 'border-[#D4AF37]/30');
                     button.classList.add('bg-[#8B5A2B]', 'text-white', 'border-[#8B5A2B]');
                 }
             });
             
-            // Show selected size info
             showSelectedSizeInfo(urlSelectedSize);
         }
 
-        // Add click event listeners to size buttons
         const sizeButtons = document.querySelectorAll('.size-btn');
         sizeButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const clickedSize = this.getAttribute('data-size');
                 
-                // Check if this size is already selected
                 const isCurrentlySelected = this.classList.contains('bg-[#8B5A2B]');
                 
-                // Remove selected styling from all buttons
                 sizeButtons.forEach(btn => {
                     btn.classList.remove('bg-[#8B5A2B]', 'text-white', 'border-[#8B5A2B]');
                     btn.classList.add('bg-[#F2E7D8]', 'text-[#74512D]', 'border-[#D4AF37]/30');
                 });
 
                 if (isCurrentlySelected) {
-                    // If clicking the same size again, unselect it
                     selectedSize = null;
                     hideSelectedSizeInfo();
                 } else {
-                    // Select the new size
                     this.classList.remove('bg-[#F2E7D8]', 'text-[#74512D]', 'border-[#D4AF37]/30');
                     this.classList.add('bg-[#8B5A2B]', 'text-white', 'border-[#8B5A2B]');
                     selectedSize = clickedSize;
@@ -162,7 +147,6 @@
             });
         });
 
-        // Quantity selector functionality
         const quantityInput = document.getElementById('quantity');
         const decreaseBtn = document.getElementById('decrease-qty');
         const increaseBtn = document.getElementById('increase-qty');
@@ -182,7 +166,6 @@
                 quantityInput.value = currentValue + 1;
             });
 
-            // Validate quantity input
             quantityInput.addEventListener('input', function() {
                 let value = parseInt(this.value);
                 if (isNaN(value) || value < 1) {
@@ -190,7 +173,6 @@
                 }
             });
 
-            // Prevent form submission on enter
             quantityInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -198,25 +180,20 @@
             });
         }
 
-        // Add to cart functionality
         const addToCartBtn = document.getElementById('add-to-cart-btn');
         addToCartBtn.addEventListener('click', function() {
             addToCart();
         });
 
-        // Buy now functionality
         const buyNowBtn = document.getElementById('buy-now-btn');
         buyNowBtn.addEventListener('click', function() {
-            // First add to cart, then redirect to checkout page
             addToCart(true);
         });
 
-        // Initialize cart count
         updateCartCount();
     });
 
     function addToCart(redirectToCart = false) {
-        // Check if size is required but not selected for fashion and alas kaki categories
         if ((categoryName === 'fashion' || categoryName === 'alas kaki') && !selectedSize) {
             showNotification('Silakan pilih ukuran terlebih dahulu!', 'error');
             return;
@@ -265,15 +242,12 @@
         });
     }
 
-    // Show notification function
     function showNotification(message, type = 'success') {
-        // Remove existing notification if any
         const existingNotification = document.querySelector('.notification');
         if (existingNotification) {
             existingNotification.remove();
         }
 
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `notification fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
         
@@ -285,15 +259,12 @@
         
         notification.textContent = message;
         
-        // Add to body
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(() => {
             notification.classList.remove('translate-x-full');
         }, 100);
         
-        // Remove after 3 seconds
         setTimeout(() => {
             notification.classList.add('translate-x-full');
             setTimeout(() => {
@@ -304,7 +275,6 @@
         }, 3000);
     }
 
-    // Update cart count function
     function updateCartCount() {
         fetch('/cart/count', {
             method: 'GET',
@@ -318,7 +288,6 @@
             const cartCountElement = document.getElementById('cart-count');
             if (cartCountElement && data.count !== undefined) {
                 cartCountElement.textContent = data.count;
-                // Samakan dengan navbar: gunakan 'flex' agar angka tepat di tengah
                 cartCountElement.style.display = data.count > 0 ? 'flex' : 'none';
             }
         })
@@ -328,13 +297,11 @@
     }
     
     function showSelectedSizeInfo(size) {
-        // Remove existing selected size info if any
         const existingInfo = document.getElementById('selected-size-info');
         if (existingInfo) {
             existingInfo.remove();
         }
         
-        // Create and show selected size info
         const sizeOptionsContainer = document.getElementById('size-options');
         if (sizeOptionsContainer) {
             const infoDiv = document.createElement('div');

@@ -21,12 +21,10 @@ class AdminController extends Controller
         $inactiveProducts = Product::where('is_active', false)->count();
         $lowStockProducts = Product::where('stock', '<', 10)->count();
         
-        // Hitung produk berdasarkan kategori
         $fashionProducts = Product::whereHas('category', function($query) {
             $query->where('name', 'Fashion');
         })->count();
         
-        // Toleransi data lama: hitung kategori "Alas Kaki" dan "Sepatu"
         $sepatuProducts = Product::whereHas('category', function($query) {
             $query->whereIn('name', ['Alas Kaki', 'Sepatu']);
         })->count();

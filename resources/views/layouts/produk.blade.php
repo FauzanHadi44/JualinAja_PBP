@@ -1,8 +1,6 @@
-<!-- Products Section -->
 <div id="produk-kami" class="max-w-7xl mx-auto px-4 py-4 mt-3 mb-5">
     <div class="flex justify-between items-start mb-8">
         <div class="text-left flex-1">
-            <!-- Title Section -->
             <div class="bg-gradient-to-br from-white/95 to-[#F8F5F0]/95 backdrop-blur-sm shadow-xl rounded-2xl px-6 h-fit py-6 border-2 border-[#8B5A2B]/20 rounded-2xl p-6">
                 <h2 class="text-3xl font-bold text-[#8B5A2B] mb-3 md:text-4xl lg:text-5xl flex items-center gap-3">
                     <svg class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-[#8B5A2B]" fill="none"
@@ -29,7 +27,6 @@
         </div>
     </div>
 
-    <!-- Category Buttons -->
     <div class="flex flex-wrap justify-start gap-4 mb-8">
         <button onclick="filterProducts('semua')"
             class="category-btn px-8 py-2 bg-[#8B5A2B] text-white font-medium rounded-lg border-2 border-[#8B5A2B] hover:bg-[#74512D] hover:border-[#74512D] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active">
@@ -46,11 +43,9 @@
 
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-        <!-- Product Card 1: Kaos Premium Cotton Combed -->
         @forelse ($products as $product)
             <div class="product-card flex-shrink-0 bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-[#D4AF37]/20 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-[#D4AF37]/40 relative overflow-hidden flex flex-col h-full"
                 data-category="{{ strtolower($product->category->name) }}" data-id="{{ $product->id }}">
-                <!-- Card decoration -->
                 <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#FFD700]/20 to-[#F4E976]/20 rounded-full blur-xl">
                 </div>
                 <div class="relative z-10 flex flex-col h-full" onclick="goToProductDetail({{ $product->id }})">
@@ -63,7 +58,6 @@
                     <div class="flex-grow">
                         <p class="text-sm text-gray-600 mb-3 line-clamp-2 h-10">{{ $product->description }}
                         </p>
-                        <!-- Size Options - Dynamic based on category -->
                         <div class="mb-3" id="size-options">
                             @php
                                 $categoryName = strtolower($product->category->name);
@@ -117,14 +111,12 @@
 </div>
 
 <script>
-    // Global variable to store selected sizes for each product
     let selectedSizes = {};
 
     function filterProducts(category) {
         const productCards = document.querySelectorAll('.product-card');
         const categoryButtons = document.querySelectorAll('.category-btn');
 
-        // Update tombol aktif
         categoryButtons.forEach(btn => {
             btn.classList.remove('bg-[#8B5A2B]', 'text-white', 'active');
             btn.classList.add('bg-white', 'text-[#8B5A2B]');
@@ -132,7 +124,6 @@
         event.target.classList.remove('bg-white', 'text-[#8B5A2B]');
         event.target.classList.add('bg-[#8B5A2B]', 'text-white', 'active');
 
-        // Tampilkan/hide produk
         let visibleCount = 0;
         productCards.forEach(card => {
             const cardCategory = card.getAttribute('data-category').toLowerCase();
@@ -145,7 +136,6 @@
             }
         });
 
-        // Tampilkan pesan jika tidak ada produk
         const noMsg = document.getElementById('no-products-message');
         if (noMsg) {
             if (visibleCount === 0) {
@@ -156,18 +146,15 @@
         }
     }
 
-    // Function to filter products by size
     function filterBySize(size) {
         const productCards = document.querySelectorAll('.product-card');
         const categoryButtons = document.querySelectorAll('.category-btn');
         
-        // Reset category buttons
         categoryButtons.forEach(btn => {
             btn.classList.remove('bg-[#8B5A2B]', 'text-white', 'active');
             btn.classList.add('bg-white', 'text-[#8B5A2B]');
         });
 
-        // Determine category based on size
         let targetCategory = '';
         if (['S', 'M', 'L', 'XL'].includes(size)) {
             targetCategory = 'fashion';
@@ -175,7 +162,6 @@
             targetCategory = 'alas kaki';
         }
 
-        // Filter products
         productCards.forEach(card => {
             const cardCategory = card.getAttribute('data-category').toLowerCase();
             
@@ -186,7 +172,6 @@
             }
         });
 
-        // Update active category button
         if (targetCategory) {
             const targetButton = document.querySelector(`[onclick="filterProducts('${targetCategory}')"]`);
             if (targetButton) {
@@ -196,15 +181,12 @@
         }
     }
 
-    // Function to handle size selection
     function selectSize(element, productId) {
         const productCard = element.closest('.product-card');
         const selectedSize = element.getAttribute('data-size');
 
-        // Check if this size is already selected
         const isCurrentlySelected = element.classList.contains('bg-[#8B5A2B]');
 
-        // Remove selected class from all size options in this product card
         const sizeOptions = productCard.querySelectorAll('.size-option');
         sizeOptions.forEach(option => {
             option.classList.remove('bg-[#8B5A2B]', 'text-white');
@@ -212,57 +194,44 @@
         });
 
         if (isCurrentlySelected) {
-            // If clicking the same size again, unselect it
             delete selectedSizes[productId];
             console.log(`Unselected size for product ${productId}`);
             
-            // Don't change category filter when unselecting size - just unselect the size
         } else {
-            // Select the new size
             element.classList.remove('bg-[#F2E7D8]', 'text-[#74512D]');
             element.classList.add('bg-[#8B5A2B]', 'text-white');
             selectedSizes[productId] = selectedSize;
             console.log(`Selected size ${selectedSize} for product ${productId}`);
-            
-            // Don't filter products by size - just select the size for this product
         }
 
-        // Store in localStorage for persistence
         localStorage.setItem('selectedSizes', JSON.stringify(selectedSizes));
     }
 
     function goToProductDetail(productId) {
-        // Get selected size for this product
         const selectedSize = selectedSizes[productId] || null;
 
-        // Create URL with size parameter and from parameter
         let url = `/produk/${productId}?from=home`;
         if (selectedSize) {
             url += `&size=${selectedSize}`;
         }
 
-        // Navigate to product detail page
         window.location.href = url;
     }
 
-    // Initialize size selection functionality when page loads
     document.addEventListener('DOMContentLoaded', function() {
-        // Load selected sizes from localStorage
         const storedSizes = localStorage.getItem('selectedSizes');
         if (storedSizes) {
             selectedSizes = JSON.parse(storedSizes);
         }
 
-        // Add click event listeners to all size options
         document.querySelectorAll('.size-option').forEach(option => {
             option.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent card click event
+                e.stopPropagation(); 
                 const productId = this.getAttribute('data-product-id');
                 selectSize(this, productId);
             });
         });
 
-        // Restore selected sizes from localStorage
         Object.keys(selectedSizes).forEach(productId => {
             const productCard = document.querySelector(`[data-id="${productId}"]`);
             if (productCard) {
@@ -278,14 +247,11 @@
 </script>
 
 <script>
-// Add to cart function
 function addToCart(productId, productName, productPrice, productDescription, productImage, categoryName, redirectToCheckout = false) {
-    // Get selected size for this product
     const productCard = document.querySelector(`[data-id="${productId}"]`);
     const selectedSizeElement = productCard.querySelector('.size-option.bg-\\[\\#8B5A2B\\]');
     const selectedSize = selectedSizeElement ? selectedSizeElement.dataset.size : '';
     
-    // Check if size is required but not selected for fashion and alas kaki categories
     if ((categoryName === 'fashion' || categoryName === 'alas kaki') && !selectedSize) {
         showNotification('Silakan pilih ukuran terlebih dahulu!', 'error');
         return;
@@ -331,15 +297,12 @@ function addToCart(productId, productName, productPrice, productDescription, pro
     });
 }
 
-// Show notification function
 function showNotification(message, type = 'success') {
-    // Remove existing notification if any
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) {
         existingNotification.remove();
     }
 
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
     
@@ -350,16 +313,12 @@ function showNotification(message, type = 'success') {
     }
     
     notification.textContent = message;
-    
-    // Add to body
     document.body.appendChild(notification);
     
-    // Animate in
     setTimeout(() => {
         notification.classList.remove('translate-x-full');
     }, 100);
     
-    // Remove after 3 seconds
     setTimeout(() => {
         notification.classList.add('translate-x-full');
         setTimeout(() => {
@@ -370,7 +329,6 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
-// Update cart count function
 function updateCartCount() {
     fetch('/cart/count', {
         method: 'GET',
@@ -384,7 +342,6 @@ function updateCartCount() {
         const cartCountElement = document.getElementById('cart-count');
         if (cartCountElement && data.count !== undefined) {
             cartCountElement.textContent = data.count;
-            // Gunakan display:flex agar centering bekerja sesuai kelas flex
             cartCountElement.style.display = data.count > 0 ? 'flex' : 'none';
         }
     })
@@ -393,7 +350,6 @@ function updateCartCount() {
     });
 }
 
-// Initialize cart count on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });

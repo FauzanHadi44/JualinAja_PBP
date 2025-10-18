@@ -11,9 +11,7 @@
             @csrf
 
             <div class="grid grid-cols-2 gap-6 items-start">
-                <!-- Kiri -->
                 <div>
-                    <!-- Product Name -->
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700 font-semibold mb-2">Product Name</label>
                         <input type="text" name="name" id="name" value="{{ old('name') }}" required
@@ -24,7 +22,6 @@
                         @enderror
                     </div>
 
-                    <!-- Description -->
                     <div class="mb-4">
                         <label for="description" class="block text-gray-700 font-semibold mb-2">Description</label>
                         <textarea name="description" id="description" rows="4"
@@ -35,7 +32,6 @@
                         @enderror
                     </div>
 
-                    <!-- Price -->
                     <div class="mb-4">
                         <label for="price" class="block text-gray-700 font-semibold mb-2">Price</label>
                         <input type="number" name="price" id="price" step="0.01" value="{{ old('price') }}"
@@ -48,9 +44,7 @@
                     </div>
                 </div>
 
-                <!-- Kanan -->
                 <div class="flex flex-col items-center justify-center w-full">
-                    <!-- Category -->
                     <div class="mb-4 w-full">
                         <label for="category_id" class="block text-gray-700 font-semibold mb-2">Category</label>
                         <select name="category_id" id="category_id"
@@ -69,14 +63,13 @@
                         @enderror
                     </div>
 
-                    <!-- Upload File -->
                     <div class="w-full mb-4">
                         <label for="image" class="text-base text-slate-900 font-medium mb-3 block">Upload Image</label>
                         <input type="file" name="image" id="image"
                             class="w-full text-slate-500 font-medium text-sm bg-white border 
-               file:cursor-pointer cursor-pointer file:border-0 
-               file:py-3 file:px-4 file:mr-4 file:bg-gray-100 
-               file:hover:bg-gray-200 file:text-slate-500 rounded" />
+                            file:cursor-pointer cursor-pointer file:border-0 
+                            file:py-3 file:px-4 file:mr-4 file:bg-gray-100 
+                            file:hover:bg-gray-200 file:text-slate-500 rounded" />
                         <p class="text-xs text-slate-500 mt-2">PNG, JPG, JPEG, WEBP, and GIF are allowed.</p>
 
                         @error('image')
@@ -84,10 +77,7 @@
                         @enderror
                     </div>
 
-
-                    <!-- Stock & Is Active -->
                     <div class="w-full grid grid-cols-2 gap-4 mb-4 mt-4">
-                        <!-- Stock -->
                         <div>
                             <label for="stock" class="block text-gray-700 font-semibold mb-2">Stock</label>
                             <input type="number" name="stock" id="stock" value="{{ old('stock', 0) }}" required
@@ -98,7 +88,6 @@
                             @enderror
                         </div>
 
-                        <!-- Is Active -->
                         <div>
                             <label for="is_active" class="block text-gray-700 font-semibold mb-2">Is Active</label>
                             <select name="is_active" id="is_active"
@@ -115,7 +104,6 @@
                 </div>
             </div>
 
-            <!-- Submit -->
             <div class="mt-6">
                 <div class="m-4 space-x-2">
                     <a href="{{ route('admin.products.index') }}"

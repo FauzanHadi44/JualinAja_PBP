@@ -129,7 +129,6 @@ class CartController extends Controller
 
         $cart->delete();
 
-        // Calculate cart summary after deletion
         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
         $subtotal = $cartItems->sum(function($item) {
             return $item->product->price * $item->quantity;

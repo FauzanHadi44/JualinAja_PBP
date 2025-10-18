@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('quantity')->default(1);
             $table->timestamps();
             
-            // Mencegah duplikasi item yang sama (user, product, size)
+            // Mencegah item sama 
             $table->unique(['user_id', 'product_id', 'size']);
         });
     }

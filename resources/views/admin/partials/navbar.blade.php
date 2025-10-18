@@ -1,4 +1,3 @@
-<!-- Admin Navbar -->
 <nav class="fixed z-30 w-full bg-[#F2E7D8] shadow-lg">
     <div class="px-8 py-3 lg:px-12 lg:pl-12">
         <div class="flex items-center justify-between">
@@ -19,7 +18,6 @@
                     </svg>
                 </button>
                 
-                <!-- Logo dan Judul - Dipindah ke tengah -->
                 <div class="flex-1 flex justify-center lg:justify-start">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center group">
                         <div class="flex items-center space-x-2 group">
@@ -38,7 +36,6 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4">
-                <!-- User Profile Dropdown -->
                 <div class="relative">
                     <button type="button" class="flex items-center text-sm bg-[#74512D] rounded-full hover:bg-[#8B5A2B] transition-colors duration-200 p-2" 
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
@@ -51,7 +48,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <!-- Dropdown menu -->
                     <div class="z-50 hidden my-4 text-base list-none bg-[#F2E7D8] divide-y divide-[#E6DACB] rounded shadow" id="dropdown-user">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-[#3F2A14]" role="none">{{ auth()->user()->name ?? 'Admin' }}</p>

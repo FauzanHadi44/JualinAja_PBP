@@ -111,32 +111,25 @@
 </div>
 
 <script>
-// Fungsi untuk tombol kembali dinamis
 function goBack() {
     const referrer = document.referrer;
     const currentHost = window.location.host;
     
-    // Cek apakah referrer dari domain yang sama
     if (referrer && referrer.includes(currentHost)) {
-        // Cek apakah dari halaman produk
         if (referrer.includes('/produk/') || referrer.includes('/viewproduk')) {
             window.location.href = referrer;
         }
-        // Cek apakah dari halaman beranda atau produk list
         else if (referrer.includes('/beranda') || referrer.includes('/produk') || referrer === `${window.location.protocol}//${currentHost}/`) {
             window.location.href = referrer;
         }
-        // Default ke beranda jika tidak bisa menentukan
         else {
             window.location.href = '{{ route("beranda") }}';
         }
     } else {
-        // Jika tidak ada referrer atau dari domain lain, kembali ke beranda
         window.location.href = '{{ route("beranda") }}';
     }
 }
 
-// Set text tombol berdasarkan referrer
 document.addEventListener('DOMContentLoaded', function() {
     const backButtonText = document.getElementById('backButtonText');
     const referrer = document.referrer;
@@ -158,28 +151,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const cartCountBadge = document.getElementById('cart-count');
 
-    // Helper function to format number as currency
     function formatCurrency(amount) {
         return 'Rp' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
-    // Function to show notification
     function showNotification(message, type = 'success') {
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white z-50 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
         notification.textContent = message;
         
-        // Add to page
         document.body.appendChild(notification);
         
-        // Remove after 3 seconds
         setTimeout(() => {
             notification.remove();
         }, 3000);
     }
 
-    // Update cart summary totals
     function updateCartSummary(data) {
         document.getElementById('subtotal').textContent = formatCurrency(data.subtotal);
         document.getElementById('shipping').textContent = formatCurrency(data.shipping);
@@ -187,70 +174,57 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('total').textContent = formatCurrency(data.total);
     }
 
-    // Function to update cart summary
     function updateCartSummary(cartSummary) {
-        // Update subtotal
         const subtotalElement = document.querySelector('[data-summary="subtotal"]');
         if (subtotalElement) {
             subtotalElement.textContent = 'Rp' + cartSummary.subtotal.toLocaleString('id-ID');
         }
         
-        // Update shipping
         const shippingElement = document.querySelector('[data-summary="shipping"]');
         if (shippingElement) {
             shippingElement.textContent = 'Rp' + cartSummary.shipping.toLocaleString('id-ID');
         }
         
-        // Update tax
         const taxElement = document.querySelector('[data-summary="tax"]');
         if (taxElement) {
             taxElement.textContent = 'Rp' + cartSummary.tax.toLocaleString('id-ID');
         }
         
-        // Update total
         const totalElement = document.querySelector('[data-summary="total"]');
         if (totalElement) {
             totalElement.textContent = 'Rp' + cartSummary.total.toLocaleString('id-ID');
         }
     }
 
-    // Remove item from DOM
     function removeCartItem(itemId) {
         const itemDiv = document.querySelector(`[data-item-id="${itemId}"]`);
         if (itemDiv) {
-            // Add fade out animation
             itemDiv.style.transition = 'opacity 0.3s ease-out';
             itemDiv.style.opacity = '0';
             
             setTimeout(() => {
                 itemDiv.remove();
-                
-                // Check if cart is empty after removal
                 const remainingItems = document.querySelectorAll('[data-item-id]');
                 if (remainingItems.length === 0) {
                     setTimeout(() => {
-                        location.reload(); // Reload to show empty cart message
+                        location.reload(); 
                     }, 500);
                 }
             }, 300);
         }
     }
 
-    // Update quantity and total price in DOM
     function updateCartItem(itemId, qty, total) {
         const itemDiv = document.querySelector(`[data-item-id="${itemId}"]`);
         if (itemDiv) {
-            // Update quantity display
             const qtySpan = itemDiv.querySelector('.qty-value');
             if (qtySpan) qtySpan.textContent = qty;
             
-            // Update total price display
             const totalPriceElements = itemDiv.querySelectorAll('.item-total');
             totalPriceElements.forEach(element => {
                 element.textContent = formatCurrency(total);
             });
             
-            // Also update the hidden input values for qty in forms
             const qtyInputs = itemDiv.querySelectorAll('.qty-input');
             qtyInputs.forEach(input => {
                 input.value = qty;
@@ -258,7 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Update cart count badge
     function updateCartCount(count) {
         if (cartCountBadge) {
             cartCountBadge.textContent = count;
@@ -270,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Intercept remove item forms
     document.querySelectorAll('.remove-item-form').forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -293,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         const msg = (data && (data.message || data.error)) ? (data.message || data.error) : `HTTP error! status: ${response.status}`;
                         throw new Error(msg);
                     }).catch(() => {
-                        // Jika response bukan JSON, tampilkan status saja
                         throw new Error(`HTTP error! status: ${response.status}`);
                     });
                 }
@@ -304,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const itemId = action.split('/').pop();
                     removeCartItem(itemId);
                     
-                    // Update cart count in navbar
                     if (data.cartCount !== undefined) {
                         const cartCountElement = document.getElementById('cart-count');
                         if (cartCountElement) {
@@ -316,18 +286,15 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         }
                         
-                        // Update global cart count if function exists
                         if (typeof window.updateCartCount === 'function') {
                             window.updateCartCount();
                         }
                     }
                     
-                    // Update cart summary if provided
                     if (data.cartSummary) {
                         updateCartSummary(data.cartSummary);
                     }
                     
-                    // Show success notification
                     showNotification('Item berhasil dihapus dari keranjang', 'success');
                 } else {
                     showNotification(data.message || 'Gagal menghapus item dari keranjang', 'error');
@@ -340,7 +307,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Handle increment and decrement buttons
     document.querySelectorAll('.decrement-btn').forEach(button => {
         button.addEventListener('click', function() {
             const form = button.closest('form');
@@ -354,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const newQty = currentQty - 1;
                 qtyInput.value = newQty;
                 qtyValue.textContent = newQty;
-                // Optimistic update total item
                 if (price) {
                     const totalPriceElements = itemRoot.querySelectorAll('.item-total');
                     totalPriceElements.forEach(el => {
@@ -362,7 +327,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
                 
-                // Disable decrement button if quantity is 1
                 if (newQty <= 1) {
                     button.disabled = true;
                     button.classList.add('opacity-50', 'cursor-not-allowed');
@@ -386,7 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const newQty = currentQty + 1;
             qtyInput.value = newQty;
             qtyValue.textContent = newQty;
-            // Optimistic update total item
             if (price) {
                 const totalPriceElements = itemRoot.querySelectorAll('.item-total');
                 totalPriceElements.forEach(el => {
@@ -394,7 +357,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Enable decrement button if it was disabled
             if (decrementBtn.disabled) {
                 decrementBtn.disabled = false;
                 decrementBtn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -404,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Submit update quantity form via AJAX
+    // Submit update quantity AJAX
     function submitUpdateForm(form) {
         const formData = new FormData(form);
         const action = form.action;
@@ -431,12 +393,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.success) {
-                // Update cart summary if provided
                 if (data.cartSummary) {
                     updateCartSummary(data.cartSummary);
                 }
                 
-                // Update item total price display
                 if (data.itemTotal !== undefined) {
                     const itemId = form.getAttribute('data-item-id');
                     const itemDiv = document.querySelector(`[data-item-id="${itemId}"]`);
@@ -448,7 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Update cart count in navbar
                 if (data.cartCount !== undefined) {
                     const cartCountElement = document.getElementById('cart-count');
                     if (cartCountElement) {
@@ -460,13 +419,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                     
-                    // Update global cart count if function exists
                     if (typeof window.updateCartCount === 'function') {
                         window.updateCartCount();
                     }
                 }
                 
-                // Show success notification
                 showNotification('Jumlah item berhasil diperbarui', 'success');
             } else {
                 showNotification(data.message || 'Gagal memperbarui keranjang', 'error');

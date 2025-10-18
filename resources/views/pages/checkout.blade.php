@@ -11,7 +11,6 @@
             </div>
 
             <div class="p-6">
-                {{-- Ringkasan Keranjang --}}
                 @if(isset($cartItems) && $cartItems->count() > 0)
                 <div class="mb-6">
                     <h2 class="text-lg font-semibold text-[#74512D] mb-3">Ringkasan Keranjang</h2>
@@ -159,7 +158,6 @@
                         </div>
                     </div>
 
-                    <!-- Error display container -->
                     <div id="errorContainer" class="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md hidden">
                         <ul id="errorList" class="list-disc list-inside text-sm"></ul>
                     </div>
@@ -174,7 +172,6 @@
         <img src="https://readymadeui.com/images/master.webp" class="w-12" alt="Mastercard" />
     </div>
 
-    <!-- Success Modal -->
     <div id="successModal" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center z-50 hidden animate-fadeIn">
         <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
             <div class="flex flex-col items-center">
@@ -194,7 +191,6 @@
 </div>
 
 <style>
-/* Modal muncul fade-in */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
@@ -203,7 +199,6 @@
   animation: fadeIn 0.4s ease-out;
 }
 
-/* Ikon melambung pelan */
 @keyframes bounceSlow {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -212,7 +207,6 @@
   animation: bounceSlow 1.2s infinite;
 }
 
-/* Centang zoom masuk */
 @keyframes scaleIn {
   0% { transform: scale(0); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
@@ -262,11 +256,9 @@
             payButton.innerHTML = '<span class="flex items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...</span>';
             loadingText.classList.remove('hidden');
 
-            // Hide previous errors
             errorContainer.classList.add('hidden');
             errorList.innerHTML = '';
 
-            // Get form data
             const formData = new FormData(form);
 
             // Send AJAX request
@@ -293,7 +285,6 @@
             })
             .then(data => {
                 if (data.success) {
-                    // Show toast + success modal
                     const orderId = data.order_id ? ` #${data.order_id}` : '';
                     showNotification(`Pembayaran dan pesanan${orderId} berhasil!`, 'success');
                     successModal.classList.remove('hidden');
@@ -313,7 +304,6 @@
                     message = error.message;
                 }
                 showNotification(message, 'error');
-                // Reset button
                 payButton.disabled = false;
                 payButton.innerHTML = 'Complete Order Rp{{ number_format($total, 0, ",", ".") }}';
                 loadingText.classList.add('hidden');
@@ -321,9 +311,7 @@
         });
 
         okButton.addEventListener('click', function() {
-            // Hide the modal
             successModal.classList.add('hidden');
-            // Redirect to orders history
             window.location.href = '{{ route("orders.index") }}';
         });
     });

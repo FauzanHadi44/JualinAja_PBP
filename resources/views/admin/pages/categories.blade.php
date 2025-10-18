@@ -21,7 +21,6 @@
     @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Daftar Kategori -->
         <div class="bg-white p-4 rounded-md border border-[#74512D]/20">
             <h2 class="text-xl font-semibold text-[#74512D] mb-4">Daftar Kategori</h2>
             <div class="overflow-x-auto">
@@ -50,7 +49,6 @@
             </div>
         </div>
 
-        <!-- Tambah Kategori Baru -->
         <div id="add-category" class="bg-white p-4 rounded-md border border-[#74512D]/20">
             <h2 class="text-xl font-semibold text-[#74512D] mb-4">Tambah Kategori</h2>
             <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-4">
